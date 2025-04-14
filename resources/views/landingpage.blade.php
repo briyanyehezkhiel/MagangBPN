@@ -148,19 +148,19 @@
 </div>
 
 <!-- SECTION: LAYANAN -->
-<section class="bg-[#64481E] py-16 px-4 text-white relative z-10">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto items-start">
-    <!-- Layanan Kiri -->
+<section class="bg-[#64481E] pt-6 pb-6 px-4 text-white relative z-10">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto items-start">
     <div class="text-center space-y-4">
-    <h3 class="text-lg font-semibold">Layanan apa saja yang kami sediakan?</h3>
-    <img src="{{ asset('img/PTUN.png') }}" class="w-full max-w-sm mx-auto rounded-lg shadow-md border-4 border-white" alt="Layanan Kiri">
+      <h3 class="text-xl md:text-xl font-semibold">Layanan apa saja yang kami sediakan?</h3>
+      <img src="{{ asset('img/Layanan1.png') }}"
+           class="w-full max-w-md mx-auto rounded-lg shadow-md border-4 border-white transition-transform transition-shadow duration-300 ease-in-out hover:scale-110 hover:shadow-xl"
+           alt="Layanan Kiri">
     </div>
-
-
-    <!-- Layanan Kanan -->
     <div class="text-center space-y-4">
-      <h3 class="text-lg font-semibold">Menyimpan data seluruh sengketa pertanahan</h3>
-      <img src="{{ asset('images/layanan-kanan.png') }}" class="w-full max-w-sm mx-auto rounded-lg shadow-md" alt="Layanan Kanan">
+      <h3 class="text-xl md:text-xl font-semibold">Menyimpan data seluruh sengketa pertanahan</h3>
+      <img src="{{ asset('img/Layanan1.png') }}"
+           class="w-full max-w-md mx-auto rounded-lg shadow-md border-4 border-white transition-transform transition-shadow duration-300 ease-in-out hover:scale-110 hover:shadow-xl"
+           alt="Layanan Kanan">
     </div>
   </div>
 </section>
