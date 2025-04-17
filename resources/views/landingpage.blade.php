@@ -53,7 +53,7 @@
             SEKSI PENGENDALIAN DAN PENANGANAN SENGKETA<br> 
             KANTOR PERTANAHAN KOTA MEDAN
         </h3>
-        <button class="mt-6 px-6 py-2 bg-[#654321] text-white font-bold rounded-lg hover:bg-black">
+        <button class="mt-6 px-6 py-2 bg-[#654321] text-white font-bold rounded-lg hover:bg-[#DDDCCB] hover:text-[#64481E]">
             <a href="/dashboard">LOGIN</a>
         </button>
     </div>
