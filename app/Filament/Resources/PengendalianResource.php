@@ -1,0 +1,171 @@
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\PengendalianResource\Pages;
+use App\Models\Pengendalian;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Textarea;
+
+class PengendalianResource extends Resource
+{
+    protected static ?string $model = Pengendalian::class;
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                TextInput::make('tahun')
+                    ->numeric()
+                    ->required(),
+
+                Select::make('jenis_hak')
+                    ->options([
+                        'Hak Milik' => 'Hak Milik',
+                        'Hak Guna Usaha' => 'Hak Guna Usaha',
+                        'Hak Pakai' => 'Hak Pakai',
+                        'Hak Guna Bangunan' => 'Hak Guna Bangunan',
+                    ])
+                    ->searchable()
+                    ->required(),
+
+                TextInput::make('nomor')
+                    ->numeric()
+                    ->required(),
+
+                DatePicker::make('tanggal_terbit')
+                    ->required(),
+
+                DatePicker::make('tanggal_berakhir')
+                    ->required(),
+
+                TextInput::make('kota')
+                    ->required(),
+
+                TextInput::make('kecamatan')
+                    ->required(),
+
+                TextInput::make('kelurahan')
+                    ->required(),
+
+                TextInput::make('luas_hak')
+                    ->suffix(' m²')
+                    ->numeric()
+                    ->required(),
+
+                TextInput::make('penguasaan_tanah')
+                    ->required(),
+
+                TextInput::make('penggunaan_tanah')
+                    ->required(),
+
+                TextInput::make('pemanfaatan_tanah')
+                    ->required(),
+
+                TextInput::make('terindikasi_terlantar')
+                    ->numeric()
+                    ->suffix('%'),
+
+                Textarea::make('keterangan')
+                    ->rows(3)
+                    ->nullable(),
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('tahun')
+                    ->label('Tahun')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('jenis_hak')
+                    ->label('Jenis Hak')
+                    ->searchable(),
+
+                TextColumn::make('nomor')
+                    ->label('Nomor')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('tanggal_terbit')
+                    ->label('Tanggal Terbit')
+                    ->date()
+                    ->sortable(),
+
+                TextColumn::make('tanggal_berakhir')
+                    ->label('Tanggal Berakhir')
+                    ->date()
+                    ->sortable(),
+
+                TextColumn::make('kota')
+                    ->label('Kota')
+                    ->searchable(),
+
+                TextColumn::make('kecamatan')
+                    ->label('Kecamatan')
+                    ->searchable(),
+
+                TextColumn::make('kelurahan')
+                    ->label('Kelurahan')
+                    ->searchable(),
+
+                TextColumn::make('luas_hak')
+                    ->label('Luas Hak')
+                    ->suffix(' m²')
+                    ->sortable(),
+
+                TextColumn::make('penguasaan_tanah')
+                    ->label('Penguasaan Tanah')
+                    ->searchable(),
+
+                TextColumn::make('penggunaan_tanah')
+                    ->label('Penggunaan Tanah')
+                    ->searchable(),
+
+                TextColumn::make('pemanfaatan_tanah')
+                    ->label('Pemanfaatan Tanah')
+                    ->searchable(),
+
+                TextColumn::make('terindikasi_terlantar')
+                    ->label('Terindikasi Terlantar')
+                    ->suffix('%')
+                    ->sortable(),
+
+                TextColumn::make('keterangan')
+                    ->label('Keterangan')
+                    ->wrap(),
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\DeleteBulkAction::make(),
+            ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListPengendalians::route('/'),
+            'create' => Pages\CreatePengendalian::route('/create'),
+            'edit' => Pages\EditPengendalian::route('/{record}/edit'),
+        ];
+    }
+}
