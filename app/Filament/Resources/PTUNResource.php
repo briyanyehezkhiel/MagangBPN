@@ -21,6 +21,23 @@ class PTUNResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    // Mengubah label di navigasi menjadi singular
+    public static function getNavigationLabel(): string
+    {
+        return 'PTUN'; // Label navigasi menjadi singular
+    }
+
+    // Mengubah label resource menjadi singular
+    public static function getLabel(): string
+    {
+        return 'PTUN'; // Label resource menjadi singular
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return 'PTUN'; // Bukan PTUNS
+    }
+
     public static function form(Form $form): Form
     {
         return $form

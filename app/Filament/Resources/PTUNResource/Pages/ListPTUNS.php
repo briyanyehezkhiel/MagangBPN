@@ -10,6 +10,9 @@ class ListPTUNS extends ListRecords
 {
     protected static string $resource = PTUNResource::class;
 
+    public static ?string $title = 'Daftar PTUN';
+
+
     protected function getHeaderActions(): array
     {
         return [

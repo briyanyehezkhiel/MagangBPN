@@ -20,6 +20,23 @@ class PengendalianResource extends Resource
     protected static ?string $model = Pengendalian::class;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    // Mengubah label di navigasi menjadi singular
+    public static function getNavigationLabel(): string
+    {
+        return 'Pengendalian'; // Label navigasi menjadi singular
+    }
+
+    // Mengubah label resource menjadi singular
+    public static function getLabel(): string
+    {
+        return 'Pengendalian'; // Label resource menjadi singular
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return 'Pengendalian'; // Bukan Pengendalians
+    }
+
     public static function form(Form $form): Form
     {
         return $form

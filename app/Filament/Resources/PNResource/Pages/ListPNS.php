@@ -10,6 +10,9 @@ class ListPNS extends ListRecords
 {
     protected static string $resource = PNResource::class;
 
+    public static ?string $title = 'Daftar PN';
+
+
     protected function getHeaderActions(): array
     {
         return [

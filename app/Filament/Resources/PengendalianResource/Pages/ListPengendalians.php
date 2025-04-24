@@ -10,6 +10,9 @@ class ListPengendalians extends ListRecords
 {
     protected static string $resource = PengendalianResource::class;
 
+    public static ?string $title = 'Daftar Pengendalian';
+
+
     protected function getHeaderActions(): array
     {
         return [

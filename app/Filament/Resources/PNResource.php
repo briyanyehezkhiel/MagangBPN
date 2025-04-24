@@ -21,6 +21,23 @@ class PNResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    // Mengubah label di navigasi menjadi singular
+    public static function getNavigationLabel(): string
+    {
+        return 'PN'; // Label navigasi menjadi singular
+    }
+
+    // Mengubah label resource menjadi singular
+    public static function getLabel(): string
+    {
+        return 'PN'; // Label resource menjadi singular
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return 'PN'; // Bukan PNs
+    }
+
     public static function form(Form $form): Form
     {
         return $form

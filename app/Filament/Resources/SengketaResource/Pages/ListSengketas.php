@@ -10,6 +10,9 @@ class ListSengketas extends ListRecords
 {
     protected static string $resource = SengketaResource::class;
 
+    public static ?string $title = 'Daftar Sengketa';
+
+
     protected function getHeaderActions(): array
     {
         return [
