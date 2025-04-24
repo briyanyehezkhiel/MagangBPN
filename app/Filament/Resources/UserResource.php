@@ -26,6 +26,22 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
+    public static function getNavigationLabel(): string
+    {
+        return 'User'; // Label navigasi menjadi singular
+    }
+
+    // Mengubah label resource menjadi singular
+    public static function getLabel(): string
+    {
+        return 'User'; // Label resource menjadi singular
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return 'User'; // Bukan Users
+    }
+
     public static function form(Form $form): Form
     {
         return $form->schema([
