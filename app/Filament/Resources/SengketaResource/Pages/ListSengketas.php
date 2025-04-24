@@ -10,10 +10,13 @@ class ListSengketas extends ListRecords
 {
     protected static string $resource = SengketaResource::class;
 
+    public static ?string $title = 'Daftar Sengketa';
+
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make() ->label('Tambah Sengketa'),
         ];
     }
 }

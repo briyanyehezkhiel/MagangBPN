@@ -1,4 +1,4 @@
-<nav class="bg-gray-800" x-data="{ isOpen: false }">
+<nav class="bg-[#64481e]" x-data="{ isOpen: false }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
@@ -12,11 +12,11 @@
               <x-nav-link href="/posts" :active="request()->is('posts')">Blog</x-nav-link>
               <x-nav-link href="/about" :active="request()->is('about')">About</x-nav-link>
               <x-nav-link href="/contact" :active="request()->is('contact')">Contact</x-nav-link>
-              
-              
-            
-             
-             
+
+
+
+
+
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
                 </button>
               </div>
 
-              
+
               <div x-show="isOpen"
               x-transition:enter="transition ease-out duration-100 transform"
               x-transition:enter-start="opacity-0 scale-95"

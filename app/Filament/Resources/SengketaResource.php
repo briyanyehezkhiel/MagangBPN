@@ -21,6 +21,23 @@ class SengketaResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    // Mengubah label di navigasi menjadi singular
+    public static function getNavigationLabel(): string
+    {
+        return 'Sengketa'; // Label navigasi menjadi singular
+    }
+
+    // Mengubah label resource menjadi singular
+    public static function getLabel(): string
+    {
+        return 'Sengketa'; // Label resource menjadi singular
+    }
+
+    public static function getPluralLabel(): string
+{
+    return 'Sengketa'; // Bukan Sengketas
+}
+
     public static function form(Form $form): Form
     {
         return $form
