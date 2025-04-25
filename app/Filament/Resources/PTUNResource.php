@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PTUNResource\Pages;
-use App\Filament\Resources\PTUNResource\RelationManagers;
 use App\Models\PTUN;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
@@ -11,8 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 
 class PTUNResource extends Resource
@@ -24,18 +21,18 @@ class PTUNResource extends Resource
     // Mengubah label di navigasi menjadi singular
     public static function getNavigationLabel(): string
     {
-        return 'PTUN'; // Label navigasi menjadi singular
+        return 'Perkara PTUN'; // Label navigasi menjadi singular
     }
 
     // Mengubah label resource menjadi singular
     public static function getLabel(): string
     {
-        return 'PTUN'; // Label resource menjadi singular
+        return 'Perkara PTUN'; // Label resource menjadi singular
     }
 
     public static function getPluralLabel(): string
     {
-        return 'PTUN'; // Bukan PTUNS
+        return 'Perkara PTUN'; // Bukan Perkara PTUNS
     }
 
     public static function form(Form $form): Form
@@ -60,17 +57,52 @@ class PTUNResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('tahun'),
-                TextColumn::make('likus_dan_register_perkara')->label('Likus dan Register Perkara'),
-                TextColumn::make('penggugat'),
-                TextColumn::make('tergugat'),
-                TextColumn::make('objek_perkara_letak')->label('Objek Perkara/Letak Objek'),
-                TextColumn::make('tk1'),
-                TextColumn::make('banding'),
-                TextColumn::make('kasasi'),
-                TextColumn::make('pk'),
-                TextColumn::make('amar_putusan_akhir')->label('Amar Putusan Akhir'),
-                TextColumn::make('keterangan'),
+                TextColumn::make('tahun')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('likus_dan_register_perkara')
+                    ->label('Likus dan Register Perkara')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('penggugat')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('tergugat')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('objek_perkara_letak')
+                    ->label('Objek Perkara/Letak Objek')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('tk1')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('banding')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('kasasi')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('pk')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('amar_putusan_akhir')
+                    ->label('Amar Putusan Akhir')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('keterangan')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 //
@@ -82,7 +114,8 @@ class PTUNResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->searchable(); // Enable search functionality across all searchable columns
     }
 
     public static function getRelations(): array

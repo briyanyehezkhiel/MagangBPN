@@ -27,7 +27,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandName('Seksi Sengketa')
+            ->brandName('Arsip Seksi V')
             ->colors([
                 'primary' => Color::Amber,
             ])

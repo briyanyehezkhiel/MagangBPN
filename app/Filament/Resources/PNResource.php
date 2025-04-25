@@ -10,8 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 
@@ -19,23 +17,23 @@ class PNResource extends Resource
 {
     protected static ?string $model = PN::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-arrow-left-circle';
 
     // Mengubah label di navigasi menjadi singular
     public static function getNavigationLabel(): string
     {
-        return 'PN'; // Label navigasi menjadi singular
+        return 'Perkara PN '; // Label navigasi menjadi singular
     }
 
     // Mengubah label resource menjadi singular
     public static function getLabel(): string
     {
-        return 'PN'; // Label resource menjadi singular
+        return 'Perkara PN '; // Label resource menjadi singular
     }
 
     public static function getPluralLabel(): string
     {
-        return 'PN'; // Bukan PNs
+        return 'Perkara PN '; // Bukan Perkara PN s
     }
 
     public static function form(Form $form): Form
@@ -63,32 +61,88 @@ class PNResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('tahun'),
-                TextColumn::make('no_register_perkara'),
-                TextColumn::make('penggugat'),
-                TextColumn::make('tergugat'),
-                TextColumn::make('objek_perkara'),
-                TextColumn::make('tk1'),
-                TextColumn::make('banding'),
-                TextColumn::make('kasasi'),
-                TextColumn::make('pk'),
-                TextColumn::make('tipologi_kasus'),
-                TextColumn::make('menang'),
-                TextColumn::make('kalah'),
-                TextColumn::make('keterangan'),
-                TextColumn::make('justicia'),
-            ])
-            ->filters([
-                //
+                TextColumn::make('tahun')
+                    ->label('Tahun')
+                    ->sortable()
+                    ->searchable(),
+
+
+                TextColumn::make('no_register_perkara')
+                    ->label('No. Register Perkara')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('penggugat')
+                    ->label('Penggugat')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('tergugat')
+                    ->label('Tergugat')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('objek_perkara')
+                    ->label('Objek Perkara')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('tk1')
+                    ->label('TK1')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('banding')
+                    ->label('Banding')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('kasasi')
+                    ->label('Kasasi')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('pk')
+                    ->label('PK')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('tipologi_kasus')
+                    ->label('Tipologi Kasus')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('menang')
+                    ->label('Menang')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('kalah')
+                    ->label('Kalah')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('keterangan')
+                    ->label('Keterangan')
+                    ->sortable()
+                    ->wrap(),
+
+                TextColumn::make('justicia')
+                    ->label('Justicia')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+                Tables\Actions\DeleteBulkAction::make(),
+            ])
+            ->filters([
+                //
+            ])
+            // Enable search functionality by using the `searchable` method.
+            ->searchable(); // This enables the global search bar for all the searchable columns
     }
 
     public static function getRelations(): array

@@ -109,6 +109,7 @@ class PengendalianResource extends Resource
 
                 TextColumn::make('jenis_hak')
                     ->label('Jenis Hak')
+                    ->sortable()
                     ->searchable(),
 
                 TextColumn::make('nomor')
@@ -128,14 +129,17 @@ class PengendalianResource extends Resource
 
                 TextColumn::make('kota')
                     ->label('Kota')
+                    ->sortable()
                     ->searchable(),
 
                 TextColumn::make('kecamatan')
                     ->label('Kecamatan')
+                    ->sortable()
                     ->searchable(),
 
                 TextColumn::make('kelurahan')
                     ->label('Kelurahan')
+                    ->sortable()
                     ->searchable(),
 
                 TextColumn::make('luas_hak')
@@ -145,14 +149,17 @@ class PengendalianResource extends Resource
 
                 TextColumn::make('penguasaan_tanah')
                     ->label('Penguasaan Tanah')
+                    ->sortable()
                     ->searchable(),
 
                 TextColumn::make('penggunaan_tanah')
                     ->label('Penggunaan Tanah')
+                    ->sortable()
                     ->searchable(),
 
                 TextColumn::make('pemanfaatan_tanah')
                     ->label('Pemanfaatan Tanah')
+                    ->sortable()
                     ->searchable(),
 
                 TextColumn::make('terindikasi_terlantar')
@@ -162,6 +169,7 @@ class PengendalianResource extends Resource
 
                 TextColumn::make('keterangan')
                     ->label('Keterangan')
+                    ->sortable()
                     ->wrap(),
             ])
             ->actions([
