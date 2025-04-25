@@ -19,23 +19,23 @@ class PNResource extends Resource
 {
     protected static ?string $model = PN::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
     // Mengubah label di navigasi menjadi singular
     public static function getNavigationLabel(): string
     {
-        return 'PN'; // Label navigasi menjadi singular
+        return 'Perkara PN '; // Label navigasi menjadi singular
     }
 
     // Mengubah label resource menjadi singular
     public static function getLabel(): string
     {
-        return 'PN'; // Label resource menjadi singular
+        return 'Perkara PN '; // Label resource menjadi singular
     }
 
     public static function getPluralLabel(): string
     {
-        return 'PN'; // Bukan PNs
+        return 'Perkara PN '; // Bukan Perkara PN s
     }
 
     public static function form(Form $form): Form

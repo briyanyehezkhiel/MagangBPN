@@ -18,7 +18,7 @@ use Filament\Forms\Components\Textarea;
 class PengendalianResource extends Resource
 {
     protected static ?string $model = Pengendalian::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
     // Mengubah label di navigasi menjadi singular
     public static function getNavigationLabel(): string

@@ -10,13 +10,13 @@ class ListPNS extends ListRecords
 {
     protected static string $resource = PNResource::class;
 
-    public static ?string $title = 'Daftar PN';
+    public static ?string $title = 'Daftar Perkara PN';
 
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make() ->label('Tambah PN'),
+            Actions\CreateAction::make() ->label('Tambah Perkara PN'),
         ];
     }
 }

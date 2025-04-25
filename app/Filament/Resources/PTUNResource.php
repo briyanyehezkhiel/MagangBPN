@@ -19,23 +19,23 @@ class PTUNResource extends Resource
 {
     protected static ?string $model = PTUN::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
     // Mengubah label di navigasi menjadi singular
     public static function getNavigationLabel(): string
     {
-        return 'PTUN'; // Label navigasi menjadi singular
+        return 'Perkara PTUN'; // Label navigasi menjadi singular
     }
 
     // Mengubah label resource menjadi singular
     public static function getLabel(): string
     {
-        return 'PTUN'; // Label resource menjadi singular
+        return 'Perkara PTUN'; // Label resource menjadi singular
     }
 
     public static function getPluralLabel(): string
     {
-        return 'PTUN'; // Bukan PTUNS
+        return 'Perkara PTUN'; // Bukan Perkara PTUNS
     }
 
     public static function form(Form $form): Form

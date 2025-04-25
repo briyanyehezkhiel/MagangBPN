@@ -10,13 +10,13 @@ class ListPTUNS extends ListRecords
 {
     protected static string $resource = PTUNResource::class;
 
-    public static ?string $title = 'Daftar PTUN';
+    public static ?string $title = 'Daftar Perkara PTUN';
 
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make() ->label('Tambah PTUN'),
+            Actions\CreateAction::make() ->label('Tambah Perkara PTUN'),
         ];
     }
 }

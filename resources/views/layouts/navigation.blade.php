@@ -1,30 +1,21 @@
-<<<<<<< HEAD
-<nav x-data="{ open: false }" class="bg-white dark:bg-[#ddddcb] border-b border-gray-100 dark:border-gray-700">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                    </a>
-                </div>
-=======
-<nav x-data="{ open: false }" class="bg-white dark:bg-[#64481E] border-b border-gray-100 dark:border-gray-700">
+
+<nav x-data="{ open: false }" class="bg-white dark:bg-white border-b border-gray-100 dark:border-gray-700">
     <div class="w-full px-0 sm:px-0 lg:px-0">
         <!-- Wrapper utama -->
-        <div class="flex justify-between items-center h-24 w-full px-4">
+        <div class="flex justify-between items-center h-16 w-full px-4">
            <!-- Kiri: Logo + Tulisan Dashboard -->
         <div class="relative flex items-center space-x-2 sm:space-x-4 ml-[-3rem] sm:ml-0 top-[-1rem] sm:top-0">
             <a href="{{ route('dashboard') }}">
-                <x-application-logo class="block h-8 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 stroke-white dark:stroke-black">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+
             </a>
-            <span class="text-lg font-semibold text-gray-800 dark:text-white mt-[28px] sm:mt-0">
-                Dashboard
+            <span class="text-lg font-semibold text-gray-800 dark:text-black mt-[28px] sm:mt-0">
+                Profile
             </span>
         </div>
->>>>>>> main
+
 
             <!-- Kanan: Dropdown -->
             <div class="hidden sm:flex sm:items-center space-x-6 mr-20">
@@ -41,9 +32,6 @@
                     </x-slot>
 
                     <x-slot name="content">
-                    <x-dropdown-link :href="route('profile.edit')" class="text-black hover:bg-[#DBD2AF]">
-                        {{ __('Profile') }}
-                    </x-dropdown-link>
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
@@ -76,7 +64,7 @@
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1 text-center">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="dark:text-white hover:bg-[#361D00]">
-                {{ __('Dashboard') }}
+                {{ __('Profile') }}
             </x-responsive-nav-link>
         </div>
 
@@ -87,9 +75,6 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')" class="dark:text-white hover:bg-[#DBD2AF]">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
 
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
