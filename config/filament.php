@@ -13,11 +13,11 @@ return [
     | This will allow your users to receive real-time notifications.
     |
     */
-    
+
     'auth' => [
         'guard' => 'web',  // Use Breeze's default auth guard
     ],
-    
+
     'broadcasting' => [
 
         // 'echo' => [
