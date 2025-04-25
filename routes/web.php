@@ -11,7 +11,7 @@ Route::get('/', function () {
 
 
 Route::get('/dashboard', function () {
-    return redirect('/dashboard'); // Filament's default URL
+    return redirect('/admin'); // Filament's default URL
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::get('/admin/logout', function () {
