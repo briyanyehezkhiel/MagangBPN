@@ -29,7 +29,11 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
 
+<<<<<<< Updated upstream
             ->brandName('Arsip Seksi V')
+=======
+            ->brandLogo(fn () => view('components.logo-with-text'))
+>>>>>>> Stashed changes
             ->colors([
                 'primary' => Color::Amber,
             ])
