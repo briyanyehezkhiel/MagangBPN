@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('tahun');
             $table->string('jenis_hak');
-            $table->integer('nomor');
+            $table->text('nomor');
             $table->date('tanggal_terbit');
             $table->date('tanggal_berakhir');
             $table->string('kota');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('penggunaan_tanah');
             $table->string('pemanfaatan_tanah');
             $table->decimal('terindikasi_terlantar', 10, 2);
-            $table->string('keterangan');
+            $table->text('keterangan');
             $table->timestamps();
         });
     }

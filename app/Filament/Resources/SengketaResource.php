@@ -11,6 +11,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Illuminate\Database\Eloquent\Model;
+
 
 class SengketaResource extends Resource
 {
@@ -34,6 +36,22 @@ class SengketaResource extends Resource
     {
         return 'Sengketa'; // Bukan Sengketas
     }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->role === 'admin';
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return auth()->user()?->role === 'admin';
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return auth()->user()?->role === 'admin';
+    }
+
 
     public static function form(Form $form): Form
     {
@@ -101,11 +119,12 @@ class SengketaResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                ->visible(fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
+
             ])
             ->searchable(); // Enable global search functionality across all searchable columns
     }

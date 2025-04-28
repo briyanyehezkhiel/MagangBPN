@@ -18,6 +18,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Get;
 use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Select;
+use Illuminate\Support\Facades\Redirect;
 
 
 class UserResource extends Resource
@@ -42,6 +43,8 @@ class UserResource extends Resource
         return 'User'; // Bukan Users
     }
 
+
+
     public static function form(Form $form): Form
     {
         return $form->schema([
@@ -54,13 +57,20 @@ class UserResource extends Resource
                 ->email()
                 ->maxLength(255),
 
-            TextInput::make('password')
-                ->password()
-                ->label('Password')
-                ->required(fn (string $context) => $context === 'create')
-                ->dehydrateStateUsing(fn ($state) => filled($state) ? Hash::make($state) : null)
-                ->visible(fn (Get $get, string $operation) => in_array($operation, ['create', 'edit']))
-                ->maxLength(255),
+                TextInput::make('password')
+    ->password()
+    ->label('Password')
+    ->dehydrateStateUsing(function ($state) {
+        if (filled($state)) {
+            return Hash::make($state);
+        }
+        return null; // Jangan ubah kalau kosong
+    })
+    ->dehydrated(fn ($state) => filled($state)) // <-- hanya kirim ke database kalau diisi
+    ->maxLength(255)
+    ->placeholder('Leave empty to keep the previous password')
+    ->visible(fn (Get $get, string $operation) => in_array($operation, ['create', 'edit'])),
+
 
             Select::make('role')
             ->label('Role')
@@ -92,7 +102,7 @@ class UserResource extends Resource
         ->bulkActions([
             Tables\Actions\BulkActionGroup::make([
                 Tables\Actions\DeleteBulkAction::make(),
-            ]),
+            ]) ->label('Lebih Lanjut'), // <-- ganti teks tombol di sini
         ]);
     }
 

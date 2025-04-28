@@ -76,10 +76,13 @@ class PengendalianResource extends Resource
                     ->required(),
 
                 DatePicker::make('tanggal_terbit')
-                    ->required(),
+                    ->required()
+                    ->after(fn($get) => $get('tanggal_berakhir') && $get('tanggal_terbit') >= $get('tanggal_berakhir') ? 'Tanggal Terbit harus lebih kecil dari Tanggal Berakhir' : null), // Validasi tanggal_terbit sebelum tanggal_berakhir
 
                 DatePicker::make('tanggal_berakhir')
-                    ->required(),
+                    ->required()
+                    ->before(fn($get) => $get('tanggal_terbit') && $get('tanggal_berakhir') <= $get('tanggal_terbit') ? 'Tanggal Berakhir harus lebih besar dari Tanggal Terbit' : null), // Validasi tanggal_berakhir setelah tanggal_terbit
+
 
                 TextInput::make('kota')
                     ->required(),
@@ -190,9 +193,11 @@ class PengendalianResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()
+                ->visible(fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
             ]);
     }
 

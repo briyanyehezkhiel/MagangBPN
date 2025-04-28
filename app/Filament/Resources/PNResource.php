@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Illuminate\Database\Eloquent\Model;
+
 
 class PNResource extends Resource
 {
@@ -36,6 +38,22 @@ class PNResource extends Resource
     {
         return 'Perkara PN '; // Bukan Perkara PN s
     }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->role === 'admin';
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return auth()->user()?->role === 'admin';
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return auth()->user()?->role === 'admin';
+    }
+
 
     public static function form(Form $form): Form
     {
@@ -135,9 +153,12 @@ class PNResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()
+                ->visible(fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
+
             ])
             ->filters([
                 //

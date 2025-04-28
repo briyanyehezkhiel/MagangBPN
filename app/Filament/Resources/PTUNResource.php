@@ -11,6 +11,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
+
 
 class PTUNResource extends Resource
 {
@@ -33,6 +35,21 @@ class PTUNResource extends Resource
     public static function getPluralLabel(): string
     {
         return 'Perkara PTUN'; // Bukan Perkara PTUNS
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->role === 'admin';
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return auth()->user()?->role === 'admin';
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return auth()->user()?->role === 'admin';
     }
 
     public static function form(Form $form): Form
@@ -109,11 +126,12 @@ class PTUNResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                ->visible(fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
+
             ])
             ->searchable(); // Enable search functionality across all searchable columns
     }
