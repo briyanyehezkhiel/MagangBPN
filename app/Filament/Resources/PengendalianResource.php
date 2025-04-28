@@ -14,6 +14,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Textarea;
+use Illuminate\Database\Eloquent\Model;
 
 class PengendalianResource extends Resource
 {
@@ -35,6 +36,21 @@ class PengendalianResource extends Resource
     public static function getPluralLabel(): string
     {
         return 'Pengendalian'; // Bukan Pengendalians
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->role === 'admin';
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return auth()->user()?->role === 'admin';
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return auth()->user()?->role === 'admin';
     }
 
     public static function form(Form $form): Form
