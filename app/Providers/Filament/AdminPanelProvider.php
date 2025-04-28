@@ -28,7 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->brandName('Arsip Seksi V')
+            ->brandLogo(fn () => view('components.logo-with-text'))
             ->colors([
                 'primary' => Color::Amber,
             ])
