@@ -14,15 +14,15 @@ Route::get('/dashboard', function () {
     return redirect('/admin'); // Filament's default URL
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin/logout', function () {
-    // Log the user out from Breeze (same guard as used by Filament)
-   return redirect('/login');  // Redirect to Breeze's login page
-});
+// Route::get('/admin/logout', function () {
+//     // Log the user out from Breeze (same guard as used by Filament)
+//    return redirect('/login');  // Redirect to Breeze's login page
+// });
 
-Route::get('/admin/login', function () {
-     // Log the user out from Breeze (same guard as used by Filament)
-    return redirect('/login');  // Redirect to Breeze's login page
-});
+// Route::get('/admin/login', function () {
+//      // Log the user out from Breeze (same guard as used by Filament)
+//     return redirect('/login');  // Redirect to Breeze's login page
+// });
 
 
 
