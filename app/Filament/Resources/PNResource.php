@@ -13,6 +13,11 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Tables\Actions\Action;
+use Filament\Forms\Components\FileUpload;
+use App\Imports\PNImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Filament\Notifications\Notification;
 
 
 class PNResource extends Resource
@@ -150,6 +155,29 @@ class PNResource extends Resource
                     ->label('Justicia')
                     ->sortable()
                     ->searchable(),
+            ])
+            ->headerActions([
+                Action::make('import')
+                    ->label('Import Excel')
+                    ->form([
+                        FileUpload::make('file')
+                            ->label('File Excel')
+                            ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv'])
+                            ->required(),
+                        TextInput::make('tahun')
+                            ->label('Tahun')
+                            ->required(),  // Menambahkan input tahun di sini
+                    ])
+                    ->action(function (array $data) {
+                        $tahun = $data['tahun'];
+                        Excel::import(new PNImport($tahun), storage_path('app/public/' . $data['file']));
+                        
+                        Notification::make()
+                        ->success()  // Specify the type of notification
+                        ->title('Success!')  // Title of the notification
+                        ->body('Impor data berhasil.')  // Message body of the notification
+                        ->send();  // Actually send the notification
+                    })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('sengketas', function (Blueprint $table) {
             $table->id();
             $table->integer('tahun');
-            $table->string('pemohon');
-            $table->string('termohon');
-            $table->string('objek');
-            $table->string('pokok_masalah');
-            $table->string('progress_penyelesaian');
-            $table->string('konseptor');
-            $table->string('k1')->nullable();
-            $table->string('k2')->nullable();
-            $table->string('k3')->nullable();
+            $table->text('pemohon')->nullable();
+            $table->text('termohon')->nullable();
+            $table->text('objek')->nullable();
+            $table->text('pokok_masalah')->nullable();
+            $table->text('progress_penyelesaian')->nullable();
+            $table->text('konseptor')->nullable();
+            $table->text('k1')->nullable();
+            $table->text('k2')->nullable();
+            $table->text('k3')->nullable();
             $table->timestamps();
             
         });

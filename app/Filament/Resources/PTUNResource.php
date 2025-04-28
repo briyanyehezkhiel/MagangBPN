@@ -12,6 +12,13 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Facades\Filament;
+use Maatwebsite\Excel\Facades\Excel;
+use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Actions\Action;
+use App\Imports\PTUNImport;
+use Filament\Notifications\Notification;
+
 
 
 class PTUNResource extends Resource
@@ -57,7 +64,7 @@ class PTUNResource extends Resource
         return $form
             ->schema([
                 TextInput::make('tahun'),
-                TextInput::make('likus_dan_register_perkara')->label('Likus dan Register Perkara'),
+                TextInput::make('lokus_dan_register_perkara')->label('Lokus dan Register Perkara'),
                 TextInput::make('penggugat'),
                 TextInput::make('tergugat'),
                 TextInput::make('objek_perkara_letak')->label('Objek Perkara/Letak Objek'),
@@ -65,7 +72,7 @@ class PTUNResource extends Resource
                 TextInput::make('banding'),
                 TextInput::make('kasasi'),
                 TextInput::make('pk'),
-                TextInput::make('amar_putusan_akhir')->label('Amar Putusan Akhir'),
+                TextInput::make('amar_putusan_akhir')->label('Amar Putusan Terakhir'),
                 TextInput::make('keterangan'),
             ]);
     }
@@ -78,8 +85,8 @@ class PTUNResource extends Resource
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('likus_dan_register_perkara')
-                    ->label('Likus dan Register Perkara')
+                TextColumn::make('lokus_dan_register_perkara')
+                    ->label('Lokus dan Register Perkara')
                     ->sortable()
                     ->searchable(),
 
@@ -113,13 +120,36 @@ class PTUNResource extends Resource
                     ->searchable(),
 
                 TextColumn::make('amar_putusan_akhir')
-                    ->label('Amar Putusan Akhir')
+                    ->label('Amar Putusan Terakhir')
                     ->sortable()
                     ->searchable(),
 
                 TextColumn::make('keterangan')
                     ->sortable()
                     ->searchable(),
+            ])
+            ->headerActions([
+                Action::make('import')
+                    ->label('Import Excel')
+                    ->form([
+                        FileUpload::make('file')
+                            ->label('File Excel')
+                            ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv'])
+                            ->required(),
+                        TextInput::make('tahun')
+                            ->label('Tahun')
+                            ->required(),  // Menambahkan input tahun di sini
+                    ])
+                    ->action(function (array $data) {
+                        $tahun = $data['tahun'];
+                        Excel::import(new PTUNImport($tahun), storage_path('app/public/' . $data['file']));
+                        
+                        Notification::make()
+                        ->success()  // Specify the type of notification
+                        ->title('Success!')  // Title of the notification
+                        ->body('Impor data berhasil.')  // Message body of the notification
+                        ->send();  // Actually send the notification
+                    })
             ])
             ->filters([
                 //

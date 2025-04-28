@@ -14,19 +14,19 @@ return new class extends Migration
         Schema::create('p_n_s', function (Blueprint $table) {
             $table->id();
             $table->integer('tahun');
-            $table->string('no_register_perkara');
-            $table->string('penggugat');
-            $table->string('tergugat');
-            $table->string('objek_perkara');
-            $table->boolean('tk1')->nullable();
-            $table->boolean('banding')->nullable();
-            $table->boolean('kasasi')->nullable();
-            $table->boolean('pk')->nullable();
-            $table->string('tipologi_kasus');
-            $table->boolean('menang');
-            $table->boolean('kalah');
-            $table->string('keterangan');
-            $table->string('justicia');
+            $table->text('no_register_perkara')->nullable();
+            $table->text('penggugat')->nullable();
+            $table->text('tergugat')->nullable();
+            $table->text('objek_perkara')->nullable();
+            $table->text('tk1')->nullable();
+            $table->text('banding')->nullable();
+            $table->text('kasasi')->nullable();
+            $table->text('pk')->nullable();
+            $table->text('tipologi_kasus')->nullable();
+            $table->text('menang')->nullable();
+            $table->text('kalah')->nullable();
+            $table->text('keterangan')->nullable();
+            $table->text('justicia')->nullable();
             $table->timestamps();
         });
     }

@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Imports;
+
+use App\Models\PN;
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithStartRow;
+
+
+class PNImport implements ToModel, WithHeadingRow, WithStartRow
+{
+    protected $tahun;
+
+    // Menerima tahun dari form input
+    public function __construct($tahun)
+    {
+        $this->tahun = $tahun;
+    }
+
+     /**
+     * Mengatur baris pertama yang digunakan untuk membaca data.
+     *
+     * @return int
+     */
+    public function startRow(): int
+    {
+        return 4; // Mulai membaca dari baris ke-2 untuk mengambil data
+    }
+
+    /**
+    * @param array $row
+    *
+    * @return \Illuminate\Database\Eloquent\Model|null
+    */
+    public function model(array $row)
+    {
+        return new PN([
+            'tahun' => $this->tahun,  // Gunakan tahun dari form input
+            'no_register_perkara' => $row[1] ?? null,
+            'penggugat' => $row[2] ?? null,
+            'tergugat' => $row[3] ?? null,
+            'objek_perkara' => $row[4] ?? null,
+            'tk1' => isset($row[5]) ? (bool) $row[5] : null,
+            'banding' => isset($row[6]) ? (bool) $row[6] : null,
+            'kasasi' => isset($row[7]) ? (bool) $row[7] : null,
+            'pk' => isset($row[8]) ? (bool) $row[8] : null,
+            'tipologi_kasus' => $row[9] ?? null,
+            'menang' => isset($row[10]) ? (bool) $row[10] : null,
+            'kalah' => isset($row[11]) ? (bool) $row[11] : null,
+            'keterangan' => $row[12] ?? null,
+            'justicia' => $row[13] ?? null,
+
+
+        ]);
+    }
+}
