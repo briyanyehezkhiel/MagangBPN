@@ -114,7 +114,7 @@ class PengendalianResource extends Resource
 
                 TextInput::make('terindikasi_terlantar')
                     ->numeric()
-                    ->suffix('%'),
+                    ->suffix('m²'),
 
                 Textarea::make('keterangan')
                     ->rows(3)
@@ -188,13 +188,14 @@ class PengendalianResource extends Resource
 
                 TextColumn::make('terindikasi_terlantar')
                     ->label('Terindikasi Terlantar')
-                    ->suffix('%')
+                    ->suffix('m²')
                     ->sortable(),
 
                 TextColumn::make('keterangan')
                     ->label('Keterangan')
                     ->sortable()
-                    ->wrap(),
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
             ])
             ->headerActions([
                 Action::make('import')
@@ -211,13 +212,15 @@ class PengendalianResource extends Resource
                     ->action(function (array $data) {
                         $tahun = $data['tahun'];
                         Excel::import(new PengendalianImport($tahun), storage_path('app/public/' . $data['file']));
-                        
+
                         Notification::make()
                         ->success()  // Specify the type of notification
                         ->title('Success!')  // Title of the notification
                         ->body('Impor data berhasil.')  // Message body of the notification
                         ->send();  // Actually send the notification
                     })
+                    ->visible(condition: fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

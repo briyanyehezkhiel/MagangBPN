@@ -101,7 +101,9 @@ class PTUNResource extends Resource
                 TextColumn::make('objek_perkara_letak')
                     ->label('Objek Perkara/Letak Objek')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('tk1')
                     ->sortable()
@@ -122,7 +124,8 @@ class PTUNResource extends Resource
                 TextColumn::make('amar_putusan_akhir')
                     ->label('Amar Putusan Terakhir')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 700px; word-wrap: break-word; white-space: normal;']),
 
                 TextColumn::make('keterangan')
                     ->sortable()
@@ -143,13 +146,15 @@ class PTUNResource extends Resource
                     ->action(function (array $data) {
                         $tahun = $data['tahun'];
                         Excel::import(new PTUNImport($tahun), storage_path('app/public/' . $data['file']));
-                        
+
                         Notification::make()
                         ->success()  // Specify the type of notification
                         ->title('Success!')  // Title of the notification
                         ->body('Impor data berhasil.')  // Message body of the notification
                         ->send();  // Actually send the notification
                     })
+                    ->visible(condition: fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
+
             ])
             ->filters([
                 //

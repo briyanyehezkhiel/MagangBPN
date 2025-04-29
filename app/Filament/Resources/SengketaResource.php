@@ -12,7 +12,7 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Model;
-use Filament\Forms\Components\Actions\Action;
+use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use App\Imports\SengketaImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -85,23 +85,33 @@ class SengketaResource extends Resource
 
                 TextColumn::make('pemohon')
                     ->sortable()
-                    ->searchable(), // Enable search for 'pemohon'
+                    ->searchable() // Enable search for 'pemohon'
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('termohon')
                     ->sortable()
-                    ->searchable(), // Enable search for 'termohon'
+                    ->searchable() // Enable search for 'termohon'
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('objek')
                     ->sortable()
-                    ->searchable(), // Enable search for 'objek'
+                    ->searchable() // Enable search for 'objek'
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('pokok_masalah')
                     ->sortable()
-                    ->searchable(), // Enable search for 'pokok_masalah'
+                    ->searchable() // Enable search for 'pokok_masalah'
+                    ->extraAttributes(['style' => 'width: 700px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('progress_penyelesaian')
                     ->sortable()
-                    ->searchable(), // Enable search for 'progress_penyelesaian'
+                    ->searchable() // Enable search for 'progress_penyelesaian'
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('konseptor')
                     ->sortable()
@@ -134,13 +144,15 @@ class SengketaResource extends Resource
                     ->action(function (array $data) {
                         $tahun = $data['tahun'];
                         Excel::import(new SengketaImport($tahun), storage_path('app/public/' . $data['file']));
-                        
+
                         Notification::make()
                         ->success()  // Specify the type of notification
                         ->title('Success!')  // Title of the notification
                         ->body('Impor data berhasil.')  // Message body of the notification
                         ->send();  // Actually send the notification
                     })
+                    ->visible(condition: fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
+
             ])
             ->filters([
                 //

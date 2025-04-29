@@ -99,17 +99,21 @@ class PNResource extends Resource
                 TextColumn::make('penggugat')
                     ->label('Penggugat')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
 
                 TextColumn::make('tergugat')
                     ->label('Tergugat')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 700px; word-wrap: break-word; white-space: normal;']),
 
                 TextColumn::make('objek_perkara')
                     ->label('Objek Perkara')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('tk1')
                     ->label('TK1')
@@ -171,13 +175,15 @@ class PNResource extends Resource
                     ->action(function (array $data) {
                         $tahun = $data['tahun'];
                         Excel::import(new PNImport($tahun), storage_path('app/public/' . $data['file']));
-                        
+
                         Notification::make()
                         ->success()  // Specify the type of notification
                         ->title('Success!')  // Title of the notification
                         ->body('Impor data berhasil.')  // Message body of the notification
                         ->send();  // Actually send the notification
                     })
+                    ->visible(condition: fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
