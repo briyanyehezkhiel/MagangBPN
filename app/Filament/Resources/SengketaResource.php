@@ -62,7 +62,10 @@ class SengketaResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('tahun'),
+                TextInput::make('tahun')
+                    ->required()
+                    ->Length(4)
+                    ->numeric(),
                 TextInput::make('pemohon'),
                 TextInput::make('termohon'),
                 TextInput::make('objek'),
@@ -78,6 +81,8 @@ class SengketaResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(Sengketa::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
+
             ->columns([
                 TextColumn::make('tahun')
                     ->sortable()
@@ -129,31 +134,7 @@ class SengketaResource extends Resource
                     ->sortable()
                     ->searchable(), // Enable search for 'k3'
             ])
-            ->headerActions([
-                Action::make('import')
-                    ->label('Import Excel')
-                    ->form([
-                        FileUpload::make('file')
-                            ->label('File Excel')
-                            ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv'])
-                            ->required(),
-                        TextInput::make('tahun')
-                            ->label('Tahun')
-                            ->required(),  // Menambahkan input tahun di sini
-                    ])
-                    ->action(function (array $data) {
-                        $tahun = $data['tahun'];
-                        Excel::import(new SengketaImport($tahun), storage_path('app/public/' . $data['file']));
 
-                        Notification::make()
-                        ->success()  // Specify the type of notification
-                        ->title('Success!')  // Title of the notification
-                        ->body('Impor data berhasil.')  // Message body of the notification
-                        ->send();  // Actually send the notification
-                    })
-                    ->visible(condition: fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
-
-            ])
             ->filters([
                 //
             ])

@@ -64,7 +64,10 @@ class PNResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('tahun'),
+                TextInput::make('tahun')
+                    ->required()
+                    ->Length(4)
+                    ->numeric(),
                 TextInput::make('no_register_perkara'),
                 TextInput::make('penggugat'),
                 TextInput::make('tergugat'),
@@ -84,6 +87,9 @@ class PNResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(PN::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
+
+
             ->columns([
                 TextColumn::make('tahun')
                     ->label('Tahun')
@@ -159,31 +165,6 @@ class PNResource extends Resource
                     ->label('Justicia')
                     ->sortable()
                     ->searchable(),
-            ])
-            ->headerActions([
-                Action::make('import')
-                    ->label('Import Excel')
-                    ->form([
-                        FileUpload::make('file')
-                            ->label('File Excel')
-                            ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv'])
-                            ->required(),
-                        TextInput::make('tahun')
-                            ->label('Tahun')
-                            ->required(),  // Menambahkan input tahun di sini
-                    ])
-                    ->action(function (array $data) {
-                        $tahun = $data['tahun'];
-                        Excel::import(new PNImport($tahun), storage_path('app/public/' . $data['file']));
-
-                        Notification::make()
-                        ->success()  // Specify the type of notification
-                        ->title('Success!')  // Title of the notification
-                        ->body('Impor data berhasil.')  // Message body of the notification
-                        ->send();  // Actually send the notification
-                    })
-                    ->visible(condition: fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
-
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

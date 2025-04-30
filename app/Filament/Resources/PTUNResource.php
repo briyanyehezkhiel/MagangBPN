@@ -63,7 +63,10 @@ class PTUNResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('tahun'),
+                TextInput::make('tahun')
+                    ->required()
+                    ->Length(4)
+                    ->numeric(),
                 TextInput::make('lokus_dan_register_perkara')->label('Lokus dan Register Perkara'),
                 TextInput::make('penggugat'),
                 TextInput::make('tergugat'),
@@ -80,6 +83,8 @@ class PTUNResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(PTUN::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
+
             ->columns([
                 TextColumn::make('tahun')
                     ->sortable()
@@ -130,31 +135,6 @@ class PTUNResource extends Resource
                 TextColumn::make('keterangan')
                     ->sortable()
                     ->searchable(),
-            ])
-            ->headerActions([
-                Action::make('import')
-                    ->label('Import Excel')
-                    ->form([
-                        FileUpload::make('file')
-                            ->label('File Excel')
-                            ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv'])
-                            ->required(),
-                        TextInput::make('tahun')
-                            ->label('Tahun')
-                            ->required(),  // Menambahkan input tahun di sini
-                    ])
-                    ->action(function (array $data) {
-                        $tahun = $data['tahun'];
-                        Excel::import(new PTUNImport($tahun), storage_path('app/public/' . $data['file']));
-
-                        Notification::make()
-                        ->success()  // Specify the type of notification
-                        ->title('Success!')  // Title of the notification
-                        ->body('Impor data berhasil.')  // Message body of the notification
-                        ->send();  // Actually send the notification
-                    })
-                    ->visible(condition: fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
-
             ])
             ->filters([
                 //

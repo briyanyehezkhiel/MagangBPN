@@ -63,8 +63,9 @@ class PengendalianResource extends Resource
         return $form
             ->schema([
                 TextInput::make('tahun')
-                    ->numeric()
-                    ->required(),
+                    ->required()
+                    ->Length(4)
+                    ->numeric(),
 
                 Select::make('jenis_hak')
                     ->options([
@@ -73,44 +74,33 @@ class PengendalianResource extends Resource
                         'Hak Pakai' => 'Hak Pakai',
                         'Hak Guna Bangunan' => 'Hak Guna Bangunan',
                     ])
-                    ->searchable()
-                    ->required(),
+                    ->searchable(),
 
                 TextInput::make('nomor')
-                    ->numeric()
-                    ->required(),
+                    ->numeric(),
 
                 DatePicker::make('tanggal_terbit')
-                    ->required()
                     ->after(fn($get) => $get('tanggal_berakhir') && $get('tanggal_terbit') >= $get('tanggal_berakhir') ? 'Tanggal Terbit harus lebih kecil dari Tanggal Berakhir' : null), // Validasi tanggal_terbit sebelum tanggal_berakhir
 
                 DatePicker::make('tanggal_berakhir')
-                    ->required()
                     ->before(fn($get) => $get('tanggal_terbit') && $get('tanggal_berakhir') <= $get('tanggal_terbit') ? 'Tanggal Berakhir harus lebih besar dari Tanggal Terbit' : null), // Validasi tanggal_berakhir setelah tanggal_terbit
 
 
-                TextInput::make('kota')
-                    ->required(),
+                TextInput::make('kota'),
 
-                TextInput::make('kecamatan')
-                    ->required(),
+                TextInput::make('kecamatan'),
 
-                TextInput::make('kelurahan')
-                    ->required(),
+                TextInput::make('kelurahan'),
 
                 TextInput::make('luas_hak')
                     ->suffix(' m²')
-                    ->numeric()
-                    ->required(),
+                    ->numeric(),
 
-                TextInput::make('penguasaan_tanah')
-                    ->required(),
+                TextInput::make('penguasaan_tanah'),
 
-                TextInput::make('penggunaan_tanah')
-                    ->required(),
+                TextInput::make('penggunaan_tanah'),
 
-                TextInput::make('pemanfaatan_tanah')
-                    ->required(),
+                TextInput::make('pemanfaatan_tanah'),
 
                 TextInput::make('terindikasi_terlantar')
                     ->numeric()
@@ -125,6 +115,8 @@ class PengendalianResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(Pengendalian::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
+
             ->columns([
                 TextColumn::make('tahun')
                     ->label('Tahun')
@@ -195,31 +187,6 @@ class PengendalianResource extends Resource
                     ->label('Keterangan')
                     ->sortable()
                     ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
-
-            ])
-            ->headerActions([
-                Action::make('import')
-                    ->label('Import Excel')
-                    ->form([
-                        FileUpload::make('file')
-                            ->label('File Excel')
-                            ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv'])
-                            ->required(),
-                        TextInput::make('tahun')
-                            ->label('Tahun')
-                            ->required(),  // Menambahkan input tahun di sini
-                    ])
-                    ->action(function (array $data) {
-                        $tahun = $data['tahun'];
-                        Excel::import(new PengendalianImport($tahun), storage_path('app/public/' . $data['file']));
-
-                        Notification::make()
-                        ->success()  // Specify the type of notification
-                        ->title('Success!')  // Title of the notification
-                        ->body('Impor data berhasil.')  // Message body of the notification
-                        ->send();  // Actually send the notification
-                    })
-                    ->visible(condition: fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
 
             ])
             ->actions([
