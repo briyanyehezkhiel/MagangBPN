@@ -27,6 +27,11 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+    return auth()->user()?->role === 'admin';
+    }
+
     public static function getNavigationLabel(): string
     {
         return 'User'; // Label navigasi menjadi singular
