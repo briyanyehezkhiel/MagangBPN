@@ -12,13 +12,13 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Get;
 use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Database\Eloquent\Model;
 
 
 class UserResource extends Resource
@@ -41,6 +41,33 @@ class UserResource extends Resource
     public static function getPluralLabel(): string
     {
         return 'User'; // Bukan Users
+    }
+
+    public static function canCreate(): bool
+    {
+        // if ($record && $record->email === 'admin@gmail.com') {
+
+        //     return false;
+        // }
+        return auth()->user()?->role === 'admin';
+
+
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        if ($record && $record->email === 'admin@gmail.com') {
+            return false;
+        }
+        return auth()->user()?->role === 'admin';
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        if ($record && $record->email === 'admin@gmail.com') {
+            return false;
+        }
+        return auth()->user()?->role === 'admin';
     }
 
 

@@ -14,6 +14,33 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
     use HasRoles;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($user) {
+            if ($user->email === 'admin@example.com') {
+                // Cegah perubahan field penting
+                $user->email = $user->getOriginal('email');
+                $user->role = $user->getOriginal('role');
+                $user->password = $user->getOriginal('password');
+            }
+        });
+
+        static::deleting(function ($user) {
+            // Cegah penghapusan
+            if ($user->email === 'admin@example.com') {
+                return false;
+            }
+        });
+    }
+
+
 
     /**
      * The attributes that are mass assignable.
