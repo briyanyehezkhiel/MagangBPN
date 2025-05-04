@@ -34,10 +34,10 @@ class ListPNS extends ListRecords
 
             // Tombol untuk mengimpor data dari file Excel
             Action::make('import')
-                    ->label('Import Excel')
+                    ->label('Import CSV')
                     ->form([
                         FileUpload::make('file')
-                            ->label('File Excel')
+                            ->label('File CSV')
                             ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv'])
                             ->required(),
                         TextInput::make('tahun')

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->text('penguasaan_tanah')->nullable();
             $table->text('penggunaan_tanah')->nullable();
             $table->text('pemanfaatan_tanah')->nullable();
-            $table->decimal('terindikasi_terlantar', 10, 2)->nullable();
+            $table->text('terindikasi_terlantar', 10, 2)->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });
