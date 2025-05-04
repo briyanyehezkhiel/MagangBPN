@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\PNImport;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Actions\CreateAction;
+use App\Exports\PNExport;
 
 
 class ListPNS extends ListRecords
@@ -27,10 +28,19 @@ class ListPNS extends ListRecords
 
              // Tombol download Excel <2022
              Action::make('file2022')
-             ->label('<2022')
+             ->label('Lainnya')
              ->url('https://docs.google.com/spreadsheets/d/1e3lj_GDUvW5YReZbcieJUp7XZ758G23JafjT_iQ3UYA/edit?gid=1959121610#gid=1959121610') // ganti dengan URL file Excel kamu
              ->color('warning')
              ->openUrlInNewTab(),
+
+             Action::make('Export CSV')
+            ->label('Export CSV')
+            ->icon('heroicon-o-arrow-down-tray')
+            ->action(function () {
+                return response()->streamDownload(function () {
+                    echo Excel::raw(new PNExport, \Maatwebsite\Excel\Excel::CSV);
+                }, 'pn-export.csv');
+            }),
 
             // Tombol untuk mengimpor data dari file Excel
             Action::make('import')
@@ -43,8 +53,8 @@ class ListPNS extends ListRecords
                         TextInput::make('tahun')
                             ->label('Tahun')
                             ->length(4)
-                            ->numeric()
-                            ->required(),  // Menambahkan input tahun di sini
+                            // ->required()  // Menambahkan input tahun di sini
+                            ->numeric(),
                     ])
                     ->action(function (array $data) {
                     try {
@@ -67,6 +77,7 @@ class ListPNS extends ListRecords
                             ->send();
                     }
                 })
+                ->icon('heroicon-o-arrow-up-tray')
 
                     ->visible(condition: fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
 

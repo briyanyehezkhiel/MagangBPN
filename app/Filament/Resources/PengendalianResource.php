@@ -69,10 +69,10 @@ class PengendalianResource extends Resource
 
                 Select::make('jenis_hak')
                     ->options([
-                        'Hak Milik' => 'Hak Milik',
-                        'Hak Guna Usaha' => 'Hak Guna Usaha',
-                        'Hak Pakai' => 'Hak Pakai',
-                        'Hak Guna Bangunan' => 'Hak Guna Bangunan',
+                        'Hak Milik' => 'HM',
+                        'Hak Guna Usaha' => 'HGU',
+                        'Hak Pakai' => 'HP',
+                        'Hak Guna Bangunan' => 'HGB',
                     ])
                     ->searchable(),
 

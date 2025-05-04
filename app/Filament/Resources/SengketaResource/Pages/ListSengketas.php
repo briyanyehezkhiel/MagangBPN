@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\SengketaImport;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Actions\CreateAction;
+use App\Exports\SengketaExport;
 
 class ListSengketas extends ListRecords
 {
@@ -30,6 +31,15 @@ class ListSengketas extends ListRecords
              ->color('warning')
              ->openUrlInNewTab(),
 
+             Action::make('Export CSV')
+            ->label('Export CSV')
+            ->icon('heroicon-o-arrow-down-tray')
+            ->action(function () {
+                return response()->streamDownload(function () {
+                    echo Excel::raw(new SengketaExport, \Maatwebsite\Excel\Excel::CSV);
+                }, 'sengketa-export.csv');
+            }),
+
             // Tombol untuk mengimpor data dari file Excel
              Action::make('import')
                     ->label('Import CSV')
@@ -41,8 +51,9 @@ class ListSengketas extends ListRecords
                         TextInput::make('tahun')
                             ->label('Tahun')
                             ->length(4)
-                            ->numeric()
-                            ->required(),  // Menambahkan input tahun di sini
+                            // ->required()  // Menambahkan input tahun di sini
+                            ->numeric(),
+                            
                     ])
                     ->action(function (array $data) {
                     try {
@@ -65,6 +76,7 @@ class ListSengketas extends ListRecords
                             ->send();
                     }
                 })
+                ->icon('heroicon-o-arrow-up-tray')
 
                     ->visible(condition: fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
 

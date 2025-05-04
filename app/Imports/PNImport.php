@@ -36,7 +36,7 @@ class PNImport implements ToModel, WithHeadingRow, WithStartRow
     public function model(array $row)
     {
         return new PN([
-            'tahun' => $this->tahun,  // Gunakan tahun dari form input
+            'tahun' =>  $this->tahun ?? $row[0],  // Gunakan tahun dari form input
             'no_register_perkara' => $row[1] ?? null,
             'penggugat' => $row[2] ?? null,
             'tergugat' => $row[3] ?? null,

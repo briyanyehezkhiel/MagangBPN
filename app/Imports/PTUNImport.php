@@ -36,7 +36,7 @@ class PTUNImport implements ToModel, WithHeadingRow, WithStartRow
     public function model(array $row)
     {
         return new PTUN([
-            'tahun' => $this->tahun,  // Gunakan tahun dari form input
+            'tahun' =>  $this->tahun ?? $row[0],  // Gunakan tahun dari form input
             'lokus_dan_register_perkara' => $row[1] ?? null, // Lokasi dan register perkara, misalnya B2
             'penggugat' => $row[2] ?? null, // Penggugat, misalnya C3
             'tergugat' => $row[3] ?? null, // Tergugat, misalnya D3

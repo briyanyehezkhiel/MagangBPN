@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\PengendalianImport;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Actions\CreateAction;
+use App\Exports\PengendalianExport;
 
 
 class ListPengendalians extends ListRecords
@@ -31,6 +32,15 @@ class ListPengendalians extends ListRecords
             ->color('warning')
             ->openUrlInNewTab(),
 
+            Action::make('Export CSV')
+            ->label('Export CSV')
+            ->icon('heroicon-o-arrow-down-tray')
+            ->action(function () {
+                return response()->streamDownload(function () {
+                    echo Excel::raw(new PengendalianExport, \Maatwebsite\Excel\Excel::CSV);
+                }, 'pengendalian-export.csv');
+            }),
+
             // Tombol untuk mengimpor data dari file Excel
             Action::make('import')
                     ->label('Import CSV')
@@ -42,8 +52,8 @@ class ListPengendalians extends ListRecords
                         TextInput::make('tahun')
                             ->label('Tahun')
                             ->length(4)
-                            ->numeric()
-                            ->required(),  // Menambahkan input tahun di sini
+                            // ->required()  // Menambahkan input tahun di sini
+                            ->numeric(),
                     ])
                     ->action(function (array $data) {
                     try {
@@ -66,6 +76,7 @@ class ListPengendalians extends ListRecords
                             ->send();
                     }
                 })
+                ->icon('heroicon-o-arrow-up-tray')
 
                     ->visible(condition: fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
 
