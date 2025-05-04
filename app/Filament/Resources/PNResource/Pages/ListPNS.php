@@ -27,20 +27,23 @@ class ListPNS extends ListRecords
         return [
 
              // Tombol download Excel <2022
-             Action::make('file2022')
+            Action::make('file2022')
              ->label('Lainnya')
              ->url('https://docs.google.com/spreadsheets/d/1e3lj_GDUvW5YReZbcieJUp7XZ758G23JafjT_iQ3UYA/edit?gid=1959121610#gid=1959121610') // ganti dengan URL file Excel kamu
              ->color('warning')
              ->openUrlInNewTab(),
 
-             Action::make('Export CSV')
-            ->label('Export CSV')
-            ->icon('heroicon-o-arrow-down-tray')
-            ->action(function () {
-                return response()->streamDownload(function () {
-                    echo Excel::raw(new PNExport, \Maatwebsite\Excel\Excel::CSV);
-                }, 'pn-export.csv');
-            }),
+            // Tombol untuk mengekspor data ke file CSV
+            Action::make('Export CSV')
+                ->label('Export CSV')
+                ->icon('heroicon-o-arrow-down-tray')
+                ->action(function () {
+                    $fileName = 'PN-export-' . now()->format('Y-m-d') . '.csv';
+
+                    return response()->streamDownload(function () {
+                        echo Excel::raw(new PNExport, \Maatwebsite\Excel\Excel::CSV);
+                    }, $fileName);
+                }),
 
             // Tombol untuk mengimpor data dari file Excel
             Action::make('import')

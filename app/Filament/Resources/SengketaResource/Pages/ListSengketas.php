@@ -14,6 +14,7 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Actions\CreateAction;
 use App\Exports\SengketaExport;
 
+
 class ListSengketas extends ListRecords
 {
     protected static string $resource = SengketaResource::class;
@@ -31,14 +32,17 @@ class ListSengketas extends ListRecords
              ->color('warning')
              ->openUrlInNewTab(),
 
+            // Tombol untuk mengekspor data ke file CSV
              Action::make('Export CSV')
-            ->label('Export CSV')
-            ->icon('heroicon-o-arrow-down-tray')
-            ->action(function () {
-                return response()->streamDownload(function () {
-                    echo Excel::raw(new SengketaExport, \Maatwebsite\Excel\Excel::CSV);
-                }, 'sengketa-export.csv');
-            }),
+                ->label('Export CSV')
+                ->icon('heroicon-o-arrow-down-tray')
+                ->action(function () {
+                    $fileName = 'Sengketa-export-' . now()->format('Y-m-d') . '.csv';
+
+                    return response()->streamDownload(function () {
+                        echo Excel::raw(new SengketaExport, \Maatwebsite\Excel\Excel::CSV);
+                    }, $fileName);
+                }),
 
             // Tombol untuk mengimpor data dari file Excel
              Action::make('import')
@@ -53,7 +57,7 @@ class ListSengketas extends ListRecords
                             ->length(4)
                             // ->required()  // Menambahkan input tahun di sini
                             ->numeric(),
-                            
+
                     ])
                     ->action(function (array $data) {
                     try {

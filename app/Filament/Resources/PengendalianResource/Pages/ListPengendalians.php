@@ -32,14 +32,17 @@ class ListPengendalians extends ListRecords
             ->color('warning')
             ->openUrlInNewTab(),
 
+            // Tombol untuk mengekspor data ke file CSV
             Action::make('Export CSV')
-            ->label('Export CSV')
-            ->icon('heroicon-o-arrow-down-tray')
-            ->action(function () {
-                return response()->streamDownload(function () {
-                    echo Excel::raw(new PengendalianExport, \Maatwebsite\Excel\Excel::CSV);
-                }, 'pengendalian-export.csv');
-            }),
+                ->label('Export CSV')
+                ->icon('heroicon-o-arrow-down-tray')
+                ->action(function () {
+                    $fileName = 'Pengendalian-export-' . now()->format('Y-m-d') . '.csv';
+
+                    return response()->streamDownload(function () {
+                        echo Excel::raw(new PengendalianExport, \Maatwebsite\Excel\Excel::CSV);
+                    }, $fileName);
+                }),
 
             // Tombol untuk mengimpor data dari file Excel
             Action::make('import')

@@ -33,14 +33,17 @@ class ListPTUNS extends ListRecords
              ->color('warning')
              ->openUrlInNewTab(),
 
+             // Tombol untuk mengekspor data ke file CSV
              Action::make('Export CSV')
-            ->label('Export CSV')
-            ->icon('heroicon-o-arrow-down-tray')
-            ->action(function () {
-                return response()->streamDownload(function () {
-                    echo Excel::raw(new PTUNExport, \Maatwebsite\Excel\Excel::CSV);
-                }, 'ptun-export.csv');
-            }),
+                ->label('Export CSV')
+                ->icon('heroicon-o-arrow-down-tray')
+                ->action(function () {
+                    $fileName = 'PTUN-export-' . now()->format('Y-m-d') . '.csv';
+
+                    return response()->streamDownload(function () {
+                        echo Excel::raw(new PTUNExport, \Maatwebsite\Excel\Excel::CSV);
+                    }, $fileName);
+                }),
 
 
             // Tombol untuk mengimpor data dari file Excel
@@ -69,7 +72,7 @@ class ListPTUNS extends ListRecords
                             ->body('Impor data berhasil.')
                             ->send();
 
-                    } 
+                    }
                     catch (\Throwable $e) {
                         Notification::make()
                             ->danger()
