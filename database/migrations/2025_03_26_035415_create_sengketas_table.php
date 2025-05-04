@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('sengketas', function (Blueprint $table) {
             $table->id();
-            $table->integer('tahun');
+            $table->integer('tahun')->nullable();
             $table->text('pemohon')->nullable();
             $table->text('termohon')->nullable();
             $table->text('objek')->nullable();

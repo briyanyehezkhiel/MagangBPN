@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('p_t_u_n_s', function (Blueprint $table) {
             $table->id();
-            $table->integer('tahun');
+            $table->integer('tahun')->nullable();
             $table->text('lokus_dan_register_perkara')->nullable();
             $table->text('penggugat')->nullable();
             $table->text('tergugat')->nullable();

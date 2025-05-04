@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pengendalians', function (Blueprint $table) {
             $table->id();
-            $table->integer('tahun');
+            $table->integer('tahun')->nullable();
             $table->text('jenis_hak')->nullable();
             $table->text('nomor')->nullable();
             $table->date('tanggal_terbit')->nullable();

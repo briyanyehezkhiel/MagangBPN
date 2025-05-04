@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\PTUNImport;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Actions\CreateAction;
+use App\Exports\PTUNExport;
 
 
 class ListPTUNS extends ListRecords
@@ -27,22 +28,33 @@ class ListPTUNS extends ListRecords
 
              // Tombol download Excel <2022
              Action::make('file ptun')
-             ->label('<2022')
+             ->label('Lainnya')
              ->url('https://docs.google.com/spreadsheets/d/1Q-L2DzpQvFd-CTS-9oM2pG53Oh6E2dSSSlXWxzUU0Z8/edit?gid=600923734#gid=600923734') // ganti dengan URL file Excel kamu
              ->color('warning')
              ->openUrlInNewTab(),
 
+             Action::make('Export CSV')
+            ->label('Export CSV')
+            ->icon('heroicon-o-arrow-down-tray')
+            ->action(function () {
+                return response()->streamDownload(function () {
+                    echo Excel::raw(new PTUNExport, \Maatwebsite\Excel\Excel::CSV);
+                }, 'ptun-export.csv');
+            }),
+
+
             // Tombol untuk mengimpor data dari file Excel
              Action::make('import')
-                    ->label('Import Excel')
+                    ->label('Import CSV')
                     ->form([
                         FileUpload::make('file')
-                            ->label('File Excel')
+                            ->label('File CSV')
                             ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv'])
                             ->required(),
                         TextInput::make('tahun')
+                            // ->required()
                             ->label('Tahun')
-                            ->required(),  // Menambahkan input tahun di sini
+                            ->numeric(),  // Menambahkan input tahun di sini
                     ])
                     ->action(function (array $data) {
                     try {
@@ -57,7 +69,8 @@ class ListPTUNS extends ListRecords
                             ->body('Impor data berhasil.')
                             ->send();
 
-                    } catch (\Throwable $e) {
+                    } 
+                    catch (\Throwable $e) {
                         Notification::make()
                             ->danger()
                             ->title('Gagal Import')
@@ -65,6 +78,8 @@ class ListPTUNS extends ListRecords
                             ->send();
                     }
                 })
+                ->icon('heroicon-o-arrow-up-tray')
+
 
                     ->visible(condition: fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
 
