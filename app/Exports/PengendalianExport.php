@@ -17,7 +17,7 @@ class PengendalianExport implements FromCollection, WithHeadings, WithCustomStar
     public function collection()
     {
         return Pengendalian::select(
-            'tahun',
+
             'jenis_hak',
             'nomor',
             'tanggal_terbit',
@@ -30,14 +30,15 @@ class PengendalianExport implements FromCollection, WithHeadings, WithCustomStar
             'penggunaan_tanah',
             'pemanfaatan_tanah',
             'terindikasi_terlantar',
-            'keterangan'
+            'keterangan',
+            'tahun'
         )->get();
     }
 
     public function headings(): array
     {
         return [
-            'Tahun',
+
             'Jenis Hak',
             'Nomor',
             'Tanggal Terbit',
@@ -51,6 +52,7 @@ class PengendalianExport implements FromCollection, WithHeadings, WithCustomStar
             'Pemanfaatan Tanah',
             'Terindikasi Terlantar',
             'Keterangan',
+            'Tahun'
         ];
     }
 }

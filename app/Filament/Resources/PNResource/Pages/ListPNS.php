@@ -14,6 +14,9 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Actions\CreateAction;
 use App\Exports\PNExport;
 
+use Filament\Actions\ActionGroup;
+
+
 
 class ListPNS extends ListRecords
 {
@@ -21,10 +24,108 @@ class ListPNS extends ListRecords
 
     public static ?string $title = 'Daftar Perkara PN';
 
-
     protected function getHeaderActions(): array
     {
         return [
+
+
+            ActionGroup::make([
+                Action::make('Import CSV')
+                    ->label('Import CSV')
+                    ->icon('heroicon-o-arrow-up-tray')
+                    ->form([
+                        FileUpload::make('file')
+                            ->label('File CSV')
+                            ->acceptedFileTypes([
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                'text/csv'
+                            ])
+                            ->required(),
+                        TextInput::make('tahun')
+                            ->label('Tahun')
+                            ->length(4)
+                            ->numeric(),
+                    ])
+                    ->action(function (array $data) {
+                        try {
+                            $filePath = storage_path('app/public/' . $data['file']);
+                            $tahun = $data['tahun'];
+
+                            Excel::import(new PNImport($tahun), $filePath);
+
+                            Notification::make()
+                                ->success()
+                                ->title('Berhasil')
+                                ->body('Impor data berhasil.')
+                                ->send();
+                        } catch (\Throwable $e) {
+                            Notification::make()
+                                ->danger()
+                                ->title('Gagal Import')
+                                ->body('Data tidak sesuai.')
+                                ->send();
+                        }
+                    })
+                    ->visible(fn () => auth()->user()?->role === 'admin'),
+
+                    Action::make('Export CSV')
+                    ->label('Export CSV')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->action(function () {
+                        try {
+                            $fileName = 'PN-export-' . now()->format('Y-m-d') . '.csv';
+
+                            Notification::make()
+                                ->success()
+                                ->title('Berhasil')
+                                ->body('Export CSV berhasil dimulai.')
+                                ->send();
+
+                            return response()->streamDownload(function () {
+                                echo Excel::raw(new PNExport, \Maatwebsite\Excel\Excel::CSV);
+                            }, $fileName);
+                        } catch (\Throwable $e) {
+                            Notification::make()
+                                ->danger()
+                                ->title('Gagal Export CSV')
+                                ->body('Terjadi kesalahan saat mengekspor.')
+                                ->send();
+
+                            return null;
+                        }
+                    }),
+
+                    Action::make('Export Excel')
+                    ->label('Export Excel')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->action(function () {
+                        try {
+                            $fileName = 'PN-export-' . now()->format('Y-m-d') . '.xlsx';
+
+                            Notification::make()
+                                ->success()
+                                ->title('Berhasil')
+                                ->body('Export Excel berhasil dimulai.')
+                                ->send();
+
+                            return response()->streamDownload(function () {
+                                echo Excel::raw(new PNExport, \Maatwebsite\Excel\Excel::XLSX);
+                            }, $fileName);
+                        } catch (\Throwable $e) {
+                            Notification::make()
+                                ->danger()
+                                ->title('Gagal Export Excel')
+                                ->body('Terjadi kesalahan saat mengekspor.')
+                                ->send();
+
+                            return null;
+                        }
+                    }),
+            ])
+            ->label('Alat')
+            ->icon('heroicon-o-arrow-down-on-square')
+            ->visible(fn () => auth()->user()?->role === 'admin')
+            ->button(),
 
              // Tombol download Excel <2022
             Action::make('file2022')
@@ -32,57 +133,6 @@ class ListPNS extends ListRecords
              ->url('https://docs.google.com/spreadsheets/d/1e3lj_GDUvW5YReZbcieJUp7XZ758G23JafjT_iQ3UYA/edit?gid=1959121610#gid=1959121610') // ganti dengan URL file Excel kamu
              ->color('warning')
              ->openUrlInNewTab(),
-
-            // Tombol untuk mengekspor data ke file CSV
-            Action::make('Export CSV')
-                ->label('Export CSV')
-                ->icon('heroicon-o-arrow-down-tray')
-                ->action(function () {
-                    $fileName = 'PN-export-' . now()->format('Y-m-d') . '.csv';
-
-                    return response()->streamDownload(function () {
-                        echo Excel::raw(new PNExport, \Maatwebsite\Excel\Excel::CSV);
-                    }, $fileName);
-                }),
-
-            // Tombol untuk mengimpor data dari file Excel
-            Action::make('import')
-                    ->label('Import CSV')
-                    ->form([
-                        FileUpload::make('file')
-                            ->label('File CSV')
-                            ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv'])
-                            ->required(),
-                        TextInput::make('tahun')
-                            ->label('Tahun')
-                            ->length(4)
-                            // ->required()  // Menambahkan input tahun di sini
-                            ->numeric(),
-                    ])
-                    ->action(function (array $data) {
-                    try {
-                        $filePath = storage_path('app/public/' . $data['file']);
-                        $tahun = $data['tahun'];
-
-                        Excel::import(new PNImport($tahun), $filePath);
-
-                        Notification::make()
-                            ->success()
-                            ->title('Berhasil')
-                            ->body('Impor data berhasil.')
-                            ->send();
-
-                    } catch (\Throwable $e) {
-                        Notification::make()
-                            ->danger()
-                            ->title('Gagal Import')
-                            ->body('Data tidak sesuai.')
-                            ->send();
-                    }
-                })
-                ->icon('heroicon-o-arrow-up-tray')
-
-                    ->visible(condition: fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
 
             // Tombol untuk menambahkan data baru
             Actions\CreateAction::make()->label('Tambah Perkara PN'),

@@ -15,6 +15,8 @@ use Filament\Resources\Pages\Actions\CreateAction;
 use App\Exports\PTUNExport;
 
 
+use Filament\Actions\ActionGroup;
+
 class ListPTUNS extends ListRecords
 {
     protected static string $resource = PTUNResource::class;
@@ -23,43 +25,28 @@ class ListPTUNS extends ListRecords
 
 
     protected function getHeaderActions(): array
-    {
-        return [
-
-             // Tombol download Excel <2022
-             Action::make('file ptun')
-             ->label('Lainnya')
-             ->url('https://docs.google.com/spreadsheets/d/1Q-L2DzpQvFd-CTS-9oM2pG53Oh6E2dSSSlXWxzUU0Z8/edit?gid=600923734#gid=600923734') // ganti dengan URL file Excel kamu
-             ->color('warning')
-             ->openUrlInNewTab(),
-
-             // Tombol untuk mengekspor data ke file CSV
-             Action::make('Export CSV')
-                ->label('Export CSV')
-                ->icon('heroicon-o-arrow-down-tray')
-                ->action(function () {
-                    $fileName = 'PTUN-export-' . now()->format('Y-m-d') . '.csv';
-
-                    return response()->streamDownload(function () {
-                        echo Excel::raw(new PTUNExport, \Maatwebsite\Excel\Excel::CSV);
-                    }, $fileName);
-                }),
+{
+    return [
 
 
-            // Tombol untuk mengimpor data dari file Excel
-             Action::make('import')
-                    ->label('Import CSV')
-                    ->form([
-                        FileUpload::make('file')
-                            ->label('File CSV')
-                            ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv'])
-                            ->required(),
-                        TextInput::make('tahun')
-                            // ->required()
-                            ->label('Tahun')
-                            ->numeric(),  // Menambahkan input tahun di sini
-                    ])
-                    ->action(function (array $data) {
+        ActionGroup::make([
+            Action::make('Import CSV')
+                ->label('Import CSV')
+                ->icon('heroicon-o-arrow-up-tray')
+                ->form([
+                    FileUpload::make('file')
+                        ->label('File CSV')
+                        ->acceptedFileTypes([
+                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                            'text/csv'
+                        ])
+                        ->required(),
+                    TextInput::make('tahun')
+                        ->label('Tahun')
+                        ->length(4)
+                        ->numeric(),
+                ])
+                ->action(function (array $data) {
                     try {
                         $filePath = storage_path('app/public/' . $data['file']);
                         $tahun = $data['tahun'];
@@ -71,9 +58,7 @@ class ListPTUNS extends ListRecords
                             ->title('Berhasil')
                             ->body('Impor data berhasil.')
                             ->send();
-
-                    }
-                    catch (\Throwable $e) {
+                    } catch (\Throwable $e) {
                         Notification::make()
                             ->danger()
                             ->title('Gagal Import')
@@ -81,10 +66,73 @@ class ListPTUNS extends ListRecords
                             ->send();
                     }
                 })
-                ->icon('heroicon-o-arrow-up-tray')
+                ->visible(fn () => auth()->user()?->role === 'admin'),
 
+                Action::make('Export CSV')
+                ->label('Export CSV')
+                ->icon('heroicon-o-arrow-down-tray')
+                ->action(function () {
+                    try {
+                        $fileName = 'PTUN-export-' . now()->format('Y-m-d') . '.csv';
 
-                    ->visible(condition: fn () => auth()->user()?->role === 'admin'), // hanya admin bisa lihat
+                        Notification::make()
+                            ->success()
+                            ->title('Berhasil')
+                            ->body('Export CSV berhasil dimulai.')
+                            ->send();
+
+                        return response()->streamDownload(function () {
+                            echo Excel::raw(new PTUNExport, \Maatwebsite\Excel\Excel::CSV);
+                        }, $fileName);
+                    } catch (\Throwable $e) {
+                        Notification::make()
+                            ->danger()
+                            ->title('Gagal Export CSV')
+                            ->body('Terjadi kesalahan saat mengekspor.')
+                            ->send();
+
+                        return null;
+                    }
+                }),
+
+                Action::make('Export Excel')
+                ->label('Export Excel')
+                ->icon('heroicon-o-arrow-down-tray')
+                ->action(function () {
+                    try {
+                        $fileName = 'PTUN-export-' . now()->format('Y-m-d') . '.xlsx';
+
+                        Notification::make()
+                            ->success()
+                            ->title('Berhasil')
+                            ->body('Export Excel berhasil dimulai.')
+                            ->send();
+
+                        return response()->streamDownload(function () {
+                            echo Excel::raw(new PTUNExport, \Maatwebsite\Excel\Excel::XLSX);
+                        }, $fileName);
+                    } catch (\Throwable $e) {
+                        Notification::make()
+                            ->danger()
+                            ->title('Gagal Export Excel')
+                            ->body('Terjadi kesalahan saat mengekspor.')
+                            ->send();
+
+                        return null;
+                    }
+                }),
+        ])
+        ->label('Alat')
+        ->icon('heroicon-o-arrow-down-on-square')
+        ->visible(fn () => auth()->user()?->role === 'admin')
+        ->button(),
+
+             // Tombol download Excel <2022
+             Action::make('file ptun')
+             ->label('Lainnya')
+             ->url('https://docs.google.com/spreadsheets/d/1Q-L2DzpQvFd-CTS-9oM2pG53Oh6E2dSSSlXWxzUU0Z8/edit?gid=600923734#gid=600923734') // ganti dengan URL file Excel kamu
+             ->color('warning')
+             ->openUrlInNewTab(),
 
             // Tombol untuk menambahkan data baru
             Actions\CreateAction::make() ->label('Tambah Perkara PTUN'),

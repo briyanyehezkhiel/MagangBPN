@@ -36,7 +36,7 @@ class PengendalianImport implements ToModel, WithStartRow
     public function model(array $row)
     {
         return new Pengendalian([
-            'tahun' =>  $this->tahun ?? $row[0],  // Gunakan tahun dari form input
+            'tahun' =>  $this->tahun ?? $row[13],  // Gunakan tahun dari form input
             'jenis_hak' => $row[0] ?? null, // Jenis Hak, misalnya B2
             'nomor' => $row[1] ?? null, // Nomor, misalnya C2
             'tanggal_terbit' => \Carbon\Carbon::parse($row[2])->format('Y-m-d'),
