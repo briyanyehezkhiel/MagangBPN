@@ -11,11 +11,13 @@ use Maatwebsite\Excel\Concerns\WithStartRow;
 class PNImport implements ToModel, WithHeadingRow, WithStartRow
 {
     protected $tahun;
+    protected $timestamp;
 
     // Menerima tahun dari form input
     public function __construct($tahun)
     {
         $this->tahun = $tahun;
+        $this->timestamp = now();
     }
 
      /**
@@ -50,6 +52,8 @@ class PNImport implements ToModel, WithHeadingRow, WithStartRow
             'kalah' => isset($row[11]) ? (bool) $row[11] : null,
             'keterangan' => $row[12] ?? null,
             'justicia' => $row[13] ?? null,
+            'created_at' => $this->timestamp,
+            'updated_at' => $this->timestamp,
 
 
         ]);

@@ -83,7 +83,9 @@ class PTUNResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(PTUN::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
+        ->query(fn () => PTUN::orderByDesc('created_at')->orderBy('id'))
+
+            // ->query(PTUN::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
 
             ->columns([
                 TextColumn::make('tahun')

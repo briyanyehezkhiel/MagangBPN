@@ -115,7 +115,9 @@ class PengendalianResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(Pengendalian::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
+            ->query(fn () => Pengendalian::orderByDesc('created_at')->orderBy('id'))
+
+            // ->query(Pengendalian::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
 
             ->columns([
                 TextColumn::make('tahun')

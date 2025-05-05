@@ -43,6 +43,7 @@ class ListSengketas extends ListRecords
                     TextInput::make('tahun')
                         ->label('Tahun')
                         ->length(4)
+                        ->helperText('Silakan isi jika file CSV tidak memuat kolom tahun atau jika Anda ingin menetapkan tahun secara manual untuk seluruh data.')
                         ->numeric(),
                 ])
                 ->action(function (array $data) {
