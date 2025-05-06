@@ -44,11 +44,12 @@ class ListPTUNS extends ListRecords
                     TextInput::make('tahun')
                         ->label('Tahun')
                         ->length(4)
-                        ->helperText('Silakan isi jika file CSV tidak memuat kolom tahun atau jika Anda ingin menetapkan tahun secara manual untuk seluruh data.')
+                        ->helperText('Isi hanya jika file anda belum ada tahun atau jika anda ingin mengganti tahun seluruh data yang dimasukkan.')
                         ->numeric(),
                 ])
                 ->action(function (array $data) {
-                    try {
+                    // try
+                    {
                         $filePath = storage_path('app/public/' . $data['file']);
                         $tahun = $data['tahun'];
 
@@ -59,13 +60,14 @@ class ListPTUNS extends ListRecords
                             ->title('Berhasil')
                             ->body('Impor data berhasil.')
                             ->send();
-                    } catch (\Throwable $e) {
-                        Notification::make()
-                            ->danger()
-                            ->title('Gagal Import')
-                            ->body('Data tidak sesuai.')
-                            ->send();
                     }
+                    // catch (\Throwable $e) {
+                    //     Notification::make()
+                    //         ->danger()
+                    //         ->title('Gagal Import')
+                    //         ->body('Data tidak sesuai.')
+                    //         ->send();
+                    // }
                 })
                 ->visible(fn () => auth()->user()?->role === 'admin'),
 
