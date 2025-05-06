@@ -93,8 +93,7 @@ class PengendalianResource extends Resource
                 TextInput::make('kelurahan'),
 
                 TextInput::make('luas_hak')
-                    ->suffix(' m²')
-                    ->numeric(),
+                    ->suffix(' m²'),
 
                 TextInput::make('penguasaan_tanah'),
 
@@ -103,7 +102,6 @@ class PengendalianResource extends Resource
                 TextInput::make('pemanfaatan_tanah'),
 
                 TextInput::make('terindikasi_terlantar')
-                    ->numeric()
                     ->suffix('m²'),
 
                 Textarea::make('keterangan')

@@ -135,7 +135,8 @@ class UserResource extends Resource
             Tables\Actions\BulkActionGroup::make([
                 Tables\Actions\DeleteBulkAction::make(),
             ]) ->label('Lebih Lanjut'), // <-- ganti teks tombol di sini
-        ]);
+        ])
+        ->searchable();
     }
 
     public static function getPages(): array
