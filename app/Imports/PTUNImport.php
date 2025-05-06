@@ -11,11 +11,13 @@ use Maatwebsite\Excel\Concerns\WithStartRow;
 class PTUNImport implements ToModel, WithHeadingRow, WithStartRow
 {
     protected $tahun;
+    protected $timestamp;
 
     // Menerima tahun dari form input
     public function __construct($tahun)
     {
         $this->tahun = $tahun;
+        $this->timestamp = now();
     }
 
      /**
@@ -36,7 +38,7 @@ class PTUNImport implements ToModel, WithHeadingRow, WithStartRow
     public function model(array $row)
     {
         return new PTUN([
-            'tahun' => $this->tahun,  // Gunakan tahun dari form input
+            'tahun' =>  $this->tahun ?? $row[0],  // Gunakan tahun dari form input
             'lokus_dan_register_perkara' => $row[1] ?? null, // Lokasi dan register perkara, misalnya B2
             'penggugat' => $row[2] ?? null, // Penggugat, misalnya C3
             'tergugat' => $row[3] ?? null, // Tergugat, misalnya D3
@@ -47,7 +49,9 @@ class PTUNImport implements ToModel, WithHeadingRow, WithStartRow
             'pk' => $row[8] ?? null, // Peninjauan Kembali, misalnya I3
             'amar_putusan_akhir' => $row[9] ?? null, // Amar Putusan Terakhir, misalnya J2
             'keterangan' => $row[10] ?? null, // Keterangan, misalnya K2
-
+            'created_at' => $this->timestamp,
+            'updated_at' => $this->timestamp,
         ]);
     }
 }
+

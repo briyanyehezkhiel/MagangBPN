@@ -69,10 +69,10 @@ class PengendalianResource extends Resource
 
                 Select::make('jenis_hak')
                     ->options([
-                        'Hak Milik' => 'Hak Milik',
-                        'Hak Guna Usaha' => 'Hak Guna Usaha',
-                        'Hak Pakai' => 'Hak Pakai',
-                        'Hak Guna Bangunan' => 'Hak Guna Bangunan',
+                        'Hak Milik' => 'HM',
+                        'Hak Guna Usaha' => 'HGU',
+                        'Hak Pakai' => 'HP',
+                        'Hak Guna Bangunan' => 'HGB',
                     ])
                     ->searchable(),
 
@@ -115,7 +115,9 @@ class PengendalianResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(Pengendalian::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
+            ->query(fn () => Pengendalian::orderByDesc('created_at')->orderBy('id'))
+
+            // ->query(Pengendalian::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
 
             ->columns([
                 TextColumn::make('tahun')

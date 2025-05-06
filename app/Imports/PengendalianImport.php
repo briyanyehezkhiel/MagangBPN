@@ -11,11 +11,13 @@ use Maatwebsite\Excel\Concerns\WithStartRow;
 class PengendalianImport implements ToModel, WithStartRow
 {
     protected $tahun;
+    protected $timestamp;
 
     // Menerima tahun dari form input
     public function __construct($tahun)
     {
         $this->tahun = $tahun;
+        $this->timestamp = now();
     }
 
      /**
@@ -36,7 +38,7 @@ class PengendalianImport implements ToModel, WithStartRow
     public function model(array $row)
     {
         return new Pengendalian([
-            'tahun' => $this->tahun,  // Gunakan tahun dari form input
+            'tahun' =>  $this->tahun ?? $row[13],  // Gunakan tahun dari form input
             'jenis_hak' => $row[0] ?? null, // Jenis Hak, misalnya B2
             'nomor' => $row[1] ?? null, // Nomor, misalnya C2
             'tanggal_terbit' => \Carbon\Carbon::parse($row[2])->format('Y-m-d'),
@@ -50,6 +52,8 @@ class PengendalianImport implements ToModel, WithStartRow
             'pemanfaatan_tanah' => $row[10] ?? null, // Pemanfaatan Tanah, misalnya L2
             'terindikasi_terlantar' => $row[11] ?? null, // Terindikasi Terlantar, misalnya M2
             'keterangan' => $row[12] ?? null, // Keterangan, misalnya N2
+            'created_at' => $this->timestamp,
+            'updated_at' => $this->timestamp,
 
         ]);
     }

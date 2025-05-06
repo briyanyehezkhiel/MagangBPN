@@ -11,11 +11,13 @@ use Maatwebsite\Excel\Concerns\WithStartRow;
 class SengketaImport implements ToModel, WithHeadingRow, WithStartRow
 {
     protected $tahun;
+    protected $timestamp;
 
     // Menerima tahun dari form input
     public function __construct($tahun)
     {
         $this->tahun = $tahun;
+        $this->timestamp = now();
     }
 
      /**
@@ -36,7 +38,7 @@ class SengketaImport implements ToModel, WithHeadingRow, WithStartRow
     public function model(array $row)
     {
         return new Sengketa([
-            'tahun' => $this->tahun,  // Gunakan tahun dari form input
+            'tahun' =>  $this->tahun ?? $row[0],  // Gunakan tahun dari form input
             'pemohon' => $row[1] ?? null,
             'termohon' => $row[2] ?? null,
             'objek' => $row[3] ?? null,
@@ -46,6 +48,8 @@ class SengketaImport implements ToModel, WithHeadingRow, WithStartRow
             'k1' => $row[7] ?? null,
             'k2' => $row[8] ?? null,
             'k3' => $row[9] ?? null,
+            'created_at' => $this->timestamp,
+            'updated_at' => $this->timestamp
         ]);
     }
 }
