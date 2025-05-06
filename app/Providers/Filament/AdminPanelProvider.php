@@ -47,7 +47,8 @@ class AdminPanelProvider extends PanelProvider
                 UserMenuItem::make()
                     ->label('Profile')
                     ->url('/profile') // Ganti ke URL yang kamu inginkan
-                    ->icon('heroicon-o-user-circle'),
+                    ->icon('heroicon-o-user-circle')
+                    ->visible(fn () => auth()->user()?->email !== 'admin@gmail.com'),
 
                 UserMenuItem::make('logout'), // Ini tombol Sign out
             ])
