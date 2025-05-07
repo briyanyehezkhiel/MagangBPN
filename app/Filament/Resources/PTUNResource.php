@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Components\Textarea;  // Pastikan ini diimpor
+
 use Filament\Facades\Filament;
 use Maatwebsite\Excel\Facades\Excel;
 use Filament\Forms\Components\FileUpload;
@@ -69,16 +71,16 @@ class PTUNResource extends Resource
                     ->required()
                     ->Length(4)
                     ->numeric(),
-                TextInput::make('lokus_dan_register_perkara')->label('Lokus dan Register Perkara'),
-                TextInput::make('penggugat'),
-                TextInput::make('tergugat'),
-                TextInput::make('objek_perkara_letak')->label('Objek Perkara/Letak Objek'),
-                TextInput::make('tk1'),
-                TextInput::make('banding'),
-                TextInput::make('kasasi'),
-                TextInput::make('pk'),
-                TextInput::make('amar_putusan_akhir')->label('Amar Putusan Terakhir'),
-                TextInput::make('keterangan'),
+                Textarea::make('lokus_dan_register_perkara')->label('Lokus dan Register Perkara'),
+                Textarea::make('penggugat'),
+                Textarea::make('tergugat'),
+                Textarea::make('objek_perkara_letak')->label('Objek Perkara/Letak Objek'),
+                Textarea::make('tk1'),
+                Textarea::make('banding'),
+                Textarea::make('kasasi'),
+                Textarea::make('pk'),
+                Textarea::make('amar_putusan_akhir')->label('Amar Putusan Terakhir'),
+                Textarea::make('keterangan'),
             ]);
     }
 
@@ -103,7 +105,7 @@ class PTUNResource extends Resource
                 })
                 ->extraAttributes(['style' => 'width: 50px; text-align: center;']),
 
-                
+
                 TextColumn::make('tahun')
                     ->sortable()
                     ->searchable()

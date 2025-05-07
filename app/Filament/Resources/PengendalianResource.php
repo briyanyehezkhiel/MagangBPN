@@ -15,6 +15,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Textarea;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Components\Textarea;  // Pastikan ini diimpor
+
 use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Maatwebsite\Excel\Facades\Excel;
@@ -76,7 +78,7 @@ class PengendalianResource extends Resource
                     ])
                     ->searchable(),
 
-                TextInput::make('nomor')
+                Textarea::make('nomor')
                     ->numeric(),
 
                 DatePicker::make('tanggal_terbit')
@@ -86,23 +88,23 @@ class PengendalianResource extends Resource
                     ->before(fn($get) => $get('tanggal_terbit') && $get('tanggal_berakhir') <= $get('tanggal_terbit') ? 'Tanggal Berakhir harus lebih besar dari Tanggal Terbit' : null), // Validasi tanggal_berakhir setelah tanggal_terbit
 
 
-                TextInput::make('kota'),
+                Textarea::make('kota'),
 
-                TextInput::make('kecamatan'),
+                Textarea::make('kecamatan'),
 
-                TextInput::make('kelurahan'),
+                Textarea::make('kelurahan'),
 
-                TextInput::make('luas_hak')
+                Textarea::make('luas_hak')
                     ->suffix(' m²')
                     ->numeric(),
 
-                TextInput::make('penguasaan_tanah'),
+                Textarea::make('penguasaan_tanah'),
 
-                TextInput::make('penggunaan_tanah'),
+                Textarea::make('penggunaan_tanah'),
 
-                TextInput::make('pemanfaatan_tanah'),
+                Textarea::make('pemanfaatan_tanah'),
 
-                TextInput::make('terindikasi_terlantar')
+                Textarea::make('terindikasi_terlantar')
                     ->numeric()
                     ->suffix('m²'),
 

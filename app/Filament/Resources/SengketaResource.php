@@ -12,6 +12,8 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Components\Textarea;  // Pastikan ini diimpor
+
 use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use App\Imports\SengketaImport;
@@ -66,15 +68,15 @@ class SengketaResource extends Resource
                     ->required()
                     ->Length(4)
                     ->numeric(),
-                TextInput::make('pemohon'),
-                TextInput::make('termohon'),
-                TextInput::make('objek'),
-                TextInput::make('pokok_masalah'),
-                TextInput::make('progress_penyelesaian'),
-                TextInput::make('konseptor'),
-                TextInput::make('k1'),
-                TextInput::make('k2'),
-                TextInput::make('k3'),
+                Textarea::make('pemohon'),
+                Textarea::make('termohon'),
+                Textarea::make('objek'),
+                Textarea::make('pokok_masalah'),
+                Textarea::make('progress_penyelesaian'),
+                Textarea::make('konseptor'),
+                Textarea::make('k1'),
+                Textarea::make('k2'),
+                Textarea::make('k3'),
             ]);
     }
 

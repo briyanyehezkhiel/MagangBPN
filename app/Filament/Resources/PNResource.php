@@ -13,6 +13,8 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Components\Textarea;  // Pastikan ini diimpor
+
 use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use App\Imports\PNImport;
@@ -68,19 +70,19 @@ class PNResource extends Resource
                     ->required()
                     ->Length(4)
                     ->numeric(),
-                TextInput::make('no_register_perkara'),
-                TextInput::make('penggugat'),
-                TextInput::make('tergugat'),
-                TextInput::make('objek_perkara'),
-                TextInput::make('tk1'),
-                TextInput::make('banding'),
-                TextInput::make('kasasi'),
-                TextInput::make('pk'),
-                TextInput::make('tipologi_kasus'),
-                TextInput::make('menang'),
-                TextInput::make('kalah'),
-                TextInput::make('keterangan'),
-                TextInput::make('justicia'),
+                Textarea::make('no_register_perkara'),
+                Textarea::make('penggugat'),
+                Textarea::make('tergugat'),
+                Textarea::make('objek_perkara'),
+                Textarea::make('tk1'),
+                Textarea::make('banding'),
+                Textarea::make('kasasi'),
+                Textarea::make('pk'),
+                Textarea::make('tipologi_kasus'),
+                Textarea::make('menang'),
+                Textarea::make('kalah'),
+                Textarea::make('keterangan'),
+                Textarea::make('justicia'),
             ]);
     }
 
