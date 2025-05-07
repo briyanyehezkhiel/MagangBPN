@@ -14,8 +14,13 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function edit(Request $request): View|RedirectResponse
     {
+        // Cek apakah email adalah admin
+        if ($request->user()->email === 'admin@gmail.com') {
+            return redirect('/admin'); // Ganti jika dashboard kamu berbeda
+        }
+
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
