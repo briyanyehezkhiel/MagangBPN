@@ -119,71 +119,108 @@ class PengendalianResource extends Resource
 
             // ->query(Pengendalian::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
 
+            ->defaultSort('id', 'desc')        // })
+
             ->columns([
+
+                TextColumn::make('no')
+                ->label('No')
+                ->getStateUsing(static function ($record, $rowLoop) {
+                    return $rowLoop->iteration;
+                })
+                ->extraAttributes(['style' => 'width: 50px; text-align: center;']),
+
+
                 TextColumn::make('tahun')
                     ->label('Tahun')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('jenis_hak')
                     ->label('Jenis Hak')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('nomor')
                     ->label('Nomor')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('tanggal_terbit')
                     ->label('Tanggal Terbit')
                     ->date()
-                    ->sortable(),
+                    ->sortable()
+                    ->extraAttributes(['style' => 'width: 150px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('tanggal_berakhir')
                     ->label('Tanggal Berakhir')
                     ->date()
-                    ->sortable(),
+                    ->sortable()
+                    ->extraAttributes(['style' => 'width: 150px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('kota')
                     ->label('Kota')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('kecamatan')
                     ->label('Kecamatan')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('kelurahan')
                     ->label('Kelurahan')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('luas_hak')
                     ->label('Luas Hak')
                     ->suffix(' m²')
-                    ->sortable(),
+                    ->sortable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('penguasaan_tanah')
                     ->label('Penguasaan Tanah')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('penggunaan_tanah')
                     ->label('Penggunaan Tanah')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('pemanfaatan_tanah')
                     ->label('Pemanfaatan Tanah')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('terindikasi_terlantar')
                     ->label('Terindikasi Terlantar')
                     ->suffix('m²')
-                    ->sortable(),
+                    ->sortable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('keterangan')
                     ->label('Keterangan')

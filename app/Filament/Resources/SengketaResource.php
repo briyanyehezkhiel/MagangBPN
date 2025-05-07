@@ -85,56 +85,76 @@ class SengketaResource extends Resource
 
             // ->query(Sengketa::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
 
+            ->defaultSort('id', 'desc')        // })
+
             ->columns([
+
+                TextColumn::make('no')
+                ->label('No')
+                ->getStateUsing(static function ($record, $rowLoop) {
+                    return $rowLoop->iteration;
+                })
+                ->extraAttributes(['style' => 'width: 50px; text-align: center;']),
+
                 TextColumn::make('tahun')
                     ->sortable()
-                    ->searchable(), // Enable search for 'tahun'
+                    ->searchable() // Enable search for 'tahun'
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('pemohon')
                     ->sortable()
                     ->searchable() // Enable search for 'pemohon'
-                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+                    ->extraAttributes(['style' => 'width: 200px; word-wrap: break-word; white-space: normal;']),
 
 
                 TextColumn::make('termohon')
                     ->sortable()
                     ->searchable() // Enable search for 'termohon'
-                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+                    ->extraAttributes(['style' => 'width: 200px; word-wrap: break-word; white-space: normal;']),
 
 
                 TextColumn::make('objek')
                     ->sortable()
                     ->searchable() // Enable search for 'objek'
-                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+                    ->extraAttributes(['style' => 'width: 700px; word-wrap: break-word; white-space: normal;']),
 
 
                 TextColumn::make('pokok_masalah')
                     ->sortable()
                     ->searchable() // Enable search for 'pokok_masalah'
-                    ->extraAttributes(['style' => 'width: 700px; word-wrap: break-word; white-space: normal;']),
+                    ->extraAttributes(['style' => 'width: 900px; word-wrap: break-word; white-space: normal;']),
 
 
                 TextColumn::make('progress_penyelesaian')
                     ->sortable()
                     ->searchable() // Enable search for 'progress_penyelesaian'
-                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
 
 
                 TextColumn::make('konseptor')
                     ->sortable()
-                    ->searchable(), // Enable search for 'konseptor'
+                    ->searchable() // Enable search for 'konseptor'
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('k1')
                     ->sortable()
-                    ->searchable(), // Enable search for 'k1'
+                    ->searchable() // Enable search for 'k1'
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('k2')
                     ->sortable()
-                    ->searchable(), // Enable search for 'k2'
+                    ->searchable() // Enable search for 'k2'
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('k3')
                     ->sortable()
-                    ->searchable(), // Enable search for 'k3'
+                    ->searchable() // Enable search for 'k3'
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
             ])
 
             ->filters([

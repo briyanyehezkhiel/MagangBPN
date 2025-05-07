@@ -91,17 +91,30 @@ class PNResource extends Resource
 
             // ->query(PN::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
 
+            ->defaultSort('id', 'desc')        // })
+
             ->columns([
+
+                TextColumn::make('no')
+                ->label('No')
+                ->getStateUsing(static function ($record, $rowLoop) {
+                    return $rowLoop->iteration;
+                })
+                ->extraAttributes(['style' => 'width: 50px; text-align: center;']),
+
+
                 TextColumn::make('tahun')
                     ->label('Tahun')
                     ->sortable()
-                    ->searchable(),
-
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
 
                 TextColumn::make('no_register_perkara')
                     ->label('No. Register Perkara')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('penggugat')
                     ->label('Penggugat')
@@ -125,47 +138,65 @@ class PNResource extends Resource
                 TextColumn::make('tk1')
                     ->label('TK1')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('banding')
                     ->label('Banding')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('kasasi')
                     ->label('Kasasi')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('pk')
                     ->label('PK')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('tipologi_kasus')
                     ->label('Tipologi Kasus')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('menang')
                     ->label('Menang')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('kalah')
                     ->label('Kalah')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('keterangan')
                     ->label('Keterangan')
                     ->sortable()
-                    ->wrap(),
+                    ->wrap()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('justicia')
                     ->label('Justicia')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
