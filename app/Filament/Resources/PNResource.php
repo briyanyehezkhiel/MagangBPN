@@ -89,7 +89,7 @@ class PNResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(fn () => PN::orderByDesc('created_at')->orderBy('id'))
+            // ->query(fn () => PN::orderByDesc('created_at')->orderBy('id'))
 
             // ->query(PN::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
 

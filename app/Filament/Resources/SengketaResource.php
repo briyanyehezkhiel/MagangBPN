@@ -83,7 +83,7 @@ class SengketaResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(fn () => Sengketa::orderByDesc('created_at')->orderBy('id'))
+            // ->query(fn () => Sengketa::orderByDesc('created_at')->orderBy('id'))
 
             // ->query(Sengketa::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
 
