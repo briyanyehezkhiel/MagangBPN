@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
 
-class PTUNImport implements ToCollection, WithHeadingRow, WithStartRow
+class PTUNImport implements ToCollection, WithStartRow
 {
     protected $tahun;
     protected $timestamp;
@@ -37,10 +37,10 @@ class PTUNImport implements ToCollection, WithHeadingRow, WithStartRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function collection(Collection $row)
+    public function collection(Collection $rows)
     {
 
-        foreach ($row->reverse() as $row) {
+        foreach ($rows->reverse() as $row) {
             PTUN::create([
             'tahun' =>  $this->tahun ?? $row[0],  // Gunakan tahun dari form input
             'lokus_dan_register_perkara' => $row[1] ?? null, // Lokasi dan register perkara, misalnya B2

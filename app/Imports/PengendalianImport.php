@@ -36,9 +36,9 @@ class PengendalianImport implements ToCollection, WithStartRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function collection(Collection $row)
+    public function collection(Collection $rows)
     {
-        foreach ($row->reverse() as $row) {
+        foreach ($rows->reverse() as $row) {
             Pengendalian::create([
             'tahun' =>  $this->tahun ?? $row[13],  // Gunakan tahun dari form input
             'jenis_hak' => $row[0] ?? null, // Jenis Hak, misalnya B2

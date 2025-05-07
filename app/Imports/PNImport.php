@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Concerns\WithStartRow;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
-class PNImport implements ToCollection, WithHeadingRow, WithStartRow
+class PNImport implements ToCollection, WithStartRow
 {
     protected $tahun;
     protected $timestamp;
@@ -36,9 +36,9 @@ class PNImport implements ToCollection, WithHeadingRow, WithStartRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function collectiion(Collection $row)
+    public function collection(Collection $rows)
     {
-        foreach ($row->reverse() as $row) {
+        foreach ($rows->reverse() as $row) {
             PN::create([
             'tahun' =>  $this->tahun ?? $row[0],  // Gunakan tahun dari form input
             'no_register_perkara' => $row[1] ?? null,

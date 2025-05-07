@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
 
-class SengketaImport implements ToCollection, WithHeadingRow, WithStartRow
+class SengketaImport implements ToCollection, WithStartRow
 {
     protected $tahun;
     protected $timestamp;
@@ -37,9 +37,9 @@ class SengketaImport implements ToCollection, WithHeadingRow, WithStartRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function collection(Collection $row)
+    public function collection(Collection $rows)
     {
-        foreach ($row->reverse() as $row) {
+        foreach ($rows->reverse() as $row) {
             Sengketa::create([
             'tahun' =>  $this->tahun ?? $row[0],  // Gunakan tahun dari form input
             'pemohon' => $row[1] ?? null,
