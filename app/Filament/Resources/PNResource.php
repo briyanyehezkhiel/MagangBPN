@@ -13,6 +13,8 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Components\Textarea;  // Pastikan ini diimpor
+
 use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use App\Imports\PNImport;
@@ -68,19 +70,19 @@ class PNResource extends Resource
                     ->required()
                     ->Length(4)
                     ->numeric(),
-                TextInput::make('no_register_perkara'),
-                TextInput::make('penggugat'),
-                TextInput::make('tergugat'),
-                TextInput::make('objek_perkara'),
-                TextInput::make('tk1'),
-                TextInput::make('banding'),
-                TextInput::make('kasasi'),
-                TextInput::make('pk'),
-                TextInput::make('tipologi_kasus'),
-                TextInput::make('menang'),
-                TextInput::make('kalah'),
-                TextInput::make('keterangan'),
-                TextInput::make('justicia'),
+                Textarea::make('no_register_perkara'),
+                Textarea::make('penggugat'),
+                Textarea::make('tergugat'),
+                Textarea::make('objek_perkara'),
+                Textarea::make('tk1'),
+                Textarea::make('banding'),
+                Textarea::make('kasasi'),
+                Textarea::make('pk'),
+                Textarea::make('tipologi_kasus'),
+                Textarea::make('menang'),
+                Textarea::make('kalah'),
+                Textarea::make('keterangan'),
+                Textarea::make('justicia'),
             ]);
     }
 
@@ -91,17 +93,30 @@ class PNResource extends Resource
 
             // ->query(PN::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
 
+            ->defaultSort('id', 'desc')        // })
+
             ->columns([
+
+                TextColumn::make('no')
+                ->label('No')
+                ->getStateUsing(static function ($record, $rowLoop) {
+                    return $rowLoop->iteration;
+                })
+                ->extraAttributes(['style' => 'width: 50px; text-align: center;']),
+
+
                 TextColumn::make('tahun')
                     ->label('Tahun')
                     ->sortable()
-                    ->searchable(),
-
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
 
                 TextColumn::make('no_register_perkara')
                     ->label('No. Register Perkara')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('penggugat')
                     ->label('Penggugat')
@@ -125,47 +140,65 @@ class PNResource extends Resource
                 TextColumn::make('tk1')
                     ->label('TK1')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('banding')
                     ->label('Banding')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('kasasi')
                     ->label('Kasasi')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('pk')
                     ->label('PK')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('tipologi_kasus')
                     ->label('Tipologi Kasus')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('menang')
                     ->label('Menang')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('kalah')
                     ->label('Kalah')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('keterangan')
                     ->label('Keterangan')
                     ->sortable()
-                    ->wrap(),
+                    ->wrap()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('justicia')
                     ->label('Justicia')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

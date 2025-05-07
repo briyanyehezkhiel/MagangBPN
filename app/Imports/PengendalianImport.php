@@ -6,9 +6,10 @@ use App\Models\Pengendalian;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithStartRow;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
 
-
-class PengendalianImport implements ToModel, WithStartRow
+class PengendalianImport implements ToCollection, WithStartRow
 {
     protected $tahun;
     protected $timestamp;
@@ -35,9 +36,10 @@ class PengendalianImport implements ToModel, WithStartRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $row)
+    public function collection(Collection $row)
     {
-        return new Pengendalian([
+        foreach ($row->reverse() as $row) {
+            Pengendalian::create([
             'tahun' =>  $this->tahun ?? $row[13],  // Gunakan tahun dari form input
             'jenis_hak' => $row[0] ?? null, // Jenis Hak, misalnya B2
             'nomor' => $row[1] ?? null, // Nomor, misalnya C2
@@ -57,4 +59,5 @@ class PengendalianImport implements ToModel, WithStartRow
 
         ]);
     }
+}
 }

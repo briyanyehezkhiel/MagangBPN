@@ -6,6 +6,13 @@
       'EloquentSerialize' => 'AnourValar\\EloquentSerialize\\Facades\\EloquentSerializeFacade',
     ),
   ),
+  'awcodes/filament-sticky-header' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Awcodes\\FilamentStickyHeader\\FilamentStickyHeaderServiceProvider',
+    ),
+  ),
   'barryvdh/laravel-debugbar' => 
   array (
     'aliases' => 

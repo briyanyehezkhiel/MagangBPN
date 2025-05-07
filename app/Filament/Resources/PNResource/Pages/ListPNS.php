@@ -43,7 +43,7 @@ class ListPNS extends ListRecords
                             ->required(),
                         TextInput::make('tahun')
                             ->label('Tahun')
-                            ->helperText('Silakan isi jika file CSV tidak memuat kolom tahun atau jika Anda ingin menetapkan tahun secara manual untuk seluruh data.')
+                            ->helperText('Isi hanya jika file anda belum ada tahun atau jika anda ingin mengganti tahun seluruh data yang dimasukkan.')
                             ->length(4)
                             ->numeric(),
                     ])

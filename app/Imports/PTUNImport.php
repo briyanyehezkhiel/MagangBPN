@@ -6,9 +6,11 @@ use App\Models\PTUN;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithStartRow;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
 
 
-class PTUNImport implements ToModel, WithHeadingRow, WithStartRow
+class PTUNImport implements ToCollection, WithHeadingRow, WithStartRow
 {
     protected $tahun;
     protected $timestamp;
@@ -35,9 +37,11 @@ class PTUNImport implements ToModel, WithHeadingRow, WithStartRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $row)
+    public function collection(Collection $row)
     {
-        return new PTUN([
+
+        foreach ($row->reverse() as $row) {
+            PTUN::create([
             'tahun' =>  $this->tahun ?? $row[0],  // Gunakan tahun dari form input
             'lokus_dan_register_perkara' => $row[1] ?? null, // Lokasi dan register perkara, misalnya B2
             'penggugat' => $row[2] ?? null, // Penggugat, misalnya C3
@@ -54,4 +58,4 @@ class PTUNImport implements ToModel, WithHeadingRow, WithStartRow
         ]);
     }
 }
-
+}

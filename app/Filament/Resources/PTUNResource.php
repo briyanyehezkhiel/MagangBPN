@@ -12,12 +12,16 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Components\Textarea;  // Pastikan ini diimpor
+
 use Filament\Facades\Filament;
 use Maatwebsite\Excel\Facades\Excel;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Actions\Action;
 use App\Imports\PTUNImport;
 use Filament\Notifications\Notification;
+use Illuminate\Database\Eloquent\Builder; // ✅ Import ini diperlukan
+
 
 
 
@@ -67,43 +71,65 @@ class PTUNResource extends Resource
                     ->required()
                     ->Length(4)
                     ->numeric(),
-                TextInput::make('lokus_dan_register_perkara')->label('Lokus dan Register Perkara'),
-                TextInput::make('penggugat'),
-                TextInput::make('tergugat'),
-                TextInput::make('objek_perkara_letak')->label('Objek Perkara/Letak Objek'),
-                TextInput::make('tk1'),
-                TextInput::make('banding'),
-                TextInput::make('kasasi'),
-                TextInput::make('pk'),
-                TextInput::make('amar_putusan_akhir')->label('Amar Putusan Terakhir'),
-                TextInput::make('keterangan'),
+                Textarea::make('lokus_dan_register_perkara')->label('Lokus dan Register Perkara'),
+                Textarea::make('penggugat'),
+                Textarea::make('tergugat'),
+                Textarea::make('objek_perkara_letak')->label('Objek Perkara/Letak Objek'),
+                Textarea::make('tk1'),
+                Textarea::make('banding'),
+                Textarea::make('kasasi'),
+                Textarea::make('pk'),
+                Textarea::make('amar_putusan_akhir')->label('Amar Putusan Terakhir'),
+                Textarea::make('keterangan'),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-        ->query(fn () => PTUN::orderByDesc('created_at')->orderBy('id'))
+
+        //         ->query(function ($query) {
+        //     $query->orderBy('created_at', 'desc') // Urutkan berdasarkan created_at terbaru
+        ->defaultSort('id', 'desc')        // })
+
+        // ->query(fn () => PTUN::orderByDesc('created_at')->orderBy('id'))
 
             // ->query(PTUN::query()->latest()) // Ini menambahkan orderBy('created_at', 'desc')
 
             ->columns([
+
+                TextColumn::make('no')
+                ->label('No')
+                ->getStateUsing(static function ($record, $rowLoop) {
+                    return $rowLoop->iteration;
+                })
+                ->extraAttributes(['style' => 'width: 50px; text-align: center;']),
+
+
                 TextColumn::make('tahun')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('lokus_dan_register_perkara')
                     ->label('Lokus dan Register Perkara')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('penggugat')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('tergugat')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('objek_perkara_letak')
                     ->label('Objek Perkara/Letak Objek')
@@ -114,19 +140,27 @@ class PTUNResource extends Resource
 
                 TextColumn::make('tk1')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('banding')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('kasasi')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('pk')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 100px; word-wrap: break-word; white-space: normal;']),
+
 
                 TextColumn::make('amar_putusan_akhir')
                     ->label('Amar Putusan Terakhir')
@@ -136,7 +170,9 @@ class PTUNResource extends Resource
 
                 TextColumn::make('keterangan')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->extraAttributes(['style' => 'width: 300px; word-wrap: break-word; white-space: normal;']),
+
             ])
             ->filters([
                 //
@@ -159,7 +195,6 @@ class PTUNResource extends Resource
             //
         ];
     }
-
     public static function getPages(): array
     {
         return [

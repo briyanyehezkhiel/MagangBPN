@@ -6,9 +6,11 @@ use App\Models\Sengketa;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithStartRow;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
 
 
-class SengketaImport implements ToModel, WithHeadingRow, WithStartRow
+class SengketaImport implements ToCollection, WithHeadingRow, WithStartRow
 {
     protected $tahun;
     protected $timestamp;
@@ -35,9 +37,10 @@ class SengketaImport implements ToModel, WithHeadingRow, WithStartRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $row)
+    public function collection(Collection $row)
     {
-        return new Sengketa([
+        foreach ($row->reverse() as $row) {
+            Sengketa::create([
             'tahun' =>  $this->tahun ?? $row[0],  // Gunakan tahun dari form input
             'pemohon' => $row[1] ?? null,
             'termohon' => $row[2] ?? null,
@@ -52,4 +55,5 @@ class SengketaImport implements ToModel, WithHeadingRow, WithStartRow
             'updated_at' => $this->timestamp
         ]);
     }
+}
 }

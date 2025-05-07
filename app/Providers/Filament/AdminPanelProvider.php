@@ -18,6 +18,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Navigation\UserMenuItem; // Tambahkan ini di atas bersama use lainnya
+use Awcodes\FilamentStickyHeader\StickyHeaderPlugin;
 
 
 class AdminPanelProvider extends PanelProvider
@@ -26,6 +27,10 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
+            // ->plugins([
+            //     StickyHeaderPlugin::make()
+            //         ->floating(),
+            // ])
             ->id('admin')
             ->path('admin')
             ->brandLogo(fn () => view('components.logo-with-text'))
@@ -47,7 +52,8 @@ class AdminPanelProvider extends PanelProvider
                 UserMenuItem::make()
                     ->label('Profile')
                     ->url('/profile') // Ganti ke URL yang kamu inginkan
-                    ->icon('heroicon-o-user-circle'),
+                    ->icon('heroicon-o-user-circle')
+                    ->visible(fn () => auth()->user()?->email !== 'admin@gmail.com'),
 
                 UserMenuItem::make('logout'), // Ini tombol Sign out
             ])
