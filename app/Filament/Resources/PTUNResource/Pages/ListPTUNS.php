@@ -48,8 +48,7 @@ class ListPTUNS extends ListRecords
                         ->numeric(),
                 ])
                 ->action(function (array $data) {
-                    // try
-                    {
+                    try{
                         $filePath = storage_path('app/public/' . $data['file']);
                         $tahun = $data['tahun'];
 
@@ -60,14 +59,13 @@ class ListPTUNS extends ListRecords
                             ->title('Berhasil')
                             ->body('Impor data berhasil.')
                             ->send();
+                    }catch (\Throwable $e) {
+                        Notification::make()
+                            ->danger()
+                            ->title('Gagal Import')
+                            ->body('Data tidak sesuai.')
+                            ->send();
                     }
-                    // catch (\Throwable $e) {
-                    //     Notification::make()
-                    //         ->danger()
-                    //         ->title('Gagal Import')
-                    //         ->body('Data tidak sesuai.')
-                    //         ->send();
-                    // }
                 })
                 ->visible(fn () => auth()->user()?->role === 'admin'),
 
