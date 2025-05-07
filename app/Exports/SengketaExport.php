@@ -27,7 +27,9 @@ class SengketaExport implements FromCollection, WithHeadings, WithCustomStartCel
             'k1',
             'k2',
             'k3'
-        )->get();
+        )
+        ->orderBy('id', 'desc')
+        ->get();
     }
 
     public function headings(): array

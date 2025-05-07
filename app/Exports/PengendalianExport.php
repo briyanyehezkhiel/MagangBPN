@@ -32,7 +32,9 @@ class PengendalianExport implements FromCollection, WithHeadings, WithCustomStar
             'terindikasi_terlantar',
             'keterangan',
             'tahun'
-        )->get();
+        )
+        ->orderBy('id', 'desc')
+        ->get();
     }
 
     public function headings(): array

@@ -31,7 +31,9 @@ class PNExport implements FromCollection, WithHeadings, WithCustomStartCell
             'kalah',
             'keterangan',
             'justicia'
-        )->get();
+        )
+        ->orderBy('id', 'desc')
+        ->get();
     }
 
     public function headings(): array

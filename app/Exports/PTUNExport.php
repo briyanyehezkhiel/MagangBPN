@@ -29,7 +29,9 @@ class PTUNExport implements FromCollection, WithHeadings, WithCustomStartCell
             'pk',
             'amar_putusan_akhir',
             'keterangan'
-        )->get();
+        )
+        ->orderBy('id', 'desc') 
+        ->get();
     }
 
     public function headings(): array
@@ -49,6 +51,6 @@ class PTUNExport implements FromCollection, WithHeadings, WithCustomStartCell
         ];
     }
 
-    
+
 }
 
