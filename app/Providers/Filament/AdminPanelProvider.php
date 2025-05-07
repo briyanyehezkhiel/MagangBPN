@@ -19,6 +19,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Navigation\UserMenuItem; // Tambahkan ini di atas bersama use lainnya
 use Awcodes\FilamentStickyHeader\StickyHeaderPlugin;
+use App\Filament\Widgets\PengendalianChartWidget; // Menambahkan widget grafik
 
 
 class AdminPanelProvider extends PanelProvider
@@ -47,6 +48,8 @@ class AdminPanelProvider extends PanelProvider
 
                 // Widgets\AccountWidget::class,
                 \App\Filament\Widgets\WelcomeCards::class, // Tambahan custom widget
+                PengendalianChartWidget::class, // Menambahkan widget ke dashboard
+
             ])
             ->userMenuItems([
                 UserMenuItem::make()
