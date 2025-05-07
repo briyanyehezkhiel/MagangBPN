@@ -39,7 +39,7 @@ class TotalDataChartWidget extends ChartWidget
     protected function getData(): array
     {
         $totals = [
-            'PNS' => DB::table('p_n_s')->count(),
+            'PN' => DB::table('p_n_s')->count(),
             'PTUN' => DB::table('p_t_u_n_s')->count(),
             'Pengendalian' => DB::table('pengendalians')->count(),
             'Sengketa' => DB::table('sengketas')->count(),
