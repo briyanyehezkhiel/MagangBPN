@@ -43,7 +43,7 @@ class ListPNS extends ListRecords
                             ->required(),
                         TextInput::make('tahun')
                             ->label('Tahun')
-                            ->helperText('Isi hanya jika file anda belum ada tahun atau jika anda ingin mengganti tahun seluruh data yang dimasukkan.')
+                            ->hint(view('components.form-hint-tahun'))
                             ->length(4)
                             ->numeric(),
                     ])
@@ -57,13 +57,13 @@ class ListPNS extends ListRecords
                             Notification::make()
                                 ->success()
                                 ->title('Berhasil')
-                                ->body('Impor data berhasil.')
+                                ->body('Impor data berhasil dilakukan.')
                                 ->send();
                         } catch (\Throwable $e) {
                             Notification::make()
                                 ->danger()
                                 ->title('Gagal Import')
-                                ->body('Data tidak sesuai.')
+                                ->body($e->getMessage())
                                 ->send();
                         }
                     })
@@ -123,7 +123,7 @@ class ListPNS extends ListRecords
                         }
                     }),
             ])
-            ->label('Alat')
+            ->label('Transfer Data')
             ->icon('heroicon-o-arrow-down-on-square')
             ->visible(fn () => auth()->user()?->role === 'admin')
             ->button(),

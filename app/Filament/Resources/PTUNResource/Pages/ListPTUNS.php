@@ -44,7 +44,7 @@ class ListPTUNS extends ListRecords
                     TextInput::make('tahun')
                         ->label('Tahun')
                         ->length(4)
-                        ->helperText('Isi hanya jika file anda belum ada tahun atau jika anda ingin mengganti tahun seluruh data yang dimasukkan.')
+                        ->hint(view('components.form-hint-tahun'))
                         ->numeric(),
                 ])
                 ->action(function (array $data) {
@@ -57,13 +57,13 @@ class ListPTUNS extends ListRecords
                         Notification::make()
                             ->success()
                             ->title('Berhasil')
-                            ->body('Impor data berhasil.')
+                            ->body('Impor data berhasil dilakukan.')
                             ->send();
                     }catch (\Throwable $e) {
                         Notification::make()
                             ->danger()
                             ->title('Gagal Import')
-                            ->body('Data tidak sesuai.')
+                            ->body($e->getMessage())
                             ->send();
                     }
                 })
@@ -123,7 +123,7 @@ class ListPTUNS extends ListRecords
                     }
                 }),
         ])
-        ->label('Alat')
+        ->label('Transfer Data')
         ->icon('heroicon-o-arrow-down-on-square')
         ->visible(fn () => auth()->user()?->role === 'admin')
         ->button(),
