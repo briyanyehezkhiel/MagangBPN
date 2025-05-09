@@ -100,7 +100,8 @@ class UserResource extends Resource
     })
     ->dehydrated(fn ($state) => filled($state)) // <-- hanya kirim ke database kalau diisi
     ->maxLength(255)
-    ->placeholder('Leave empty to keep the previous password')
+    ->revealable()
+    ->placeholder('Biarkan kosong jika tidak ingin mengubah password')
     ->visible(fn (Get $get, string $operation) => in_array($operation, ['create', 'edit'])),
 
 
