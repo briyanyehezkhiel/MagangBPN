@@ -80,7 +80,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-danger-button>{{ __('Simpan') }}</x-danger-button>
+            <x-amber-button>{{ __('Simpan') }}</x-amber-button>
 
             @if (session('status') === 'password-updated')
                 <p
