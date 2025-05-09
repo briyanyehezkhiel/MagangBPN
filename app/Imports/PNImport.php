@@ -38,6 +38,42 @@ class PNImport implements ToCollection, WithStartRow
     */
     public function collection(Collection $rows)
     {
+
+        $firstRow = $rows->first();
+
+        // Validasi: Tahun diisi manual dan file juga punya tahun
+        if (
+            $this->tahun &&
+            (
+                isset($firstRow[0]) &&
+                is_numeric($firstRow[0]) &&
+                strlen($firstRow[0]) == 4
+            )
+        ) {
+            throw new \Exception("Gagal import: Anda mengisi tahun manual dan file juga mengandung kolom tahun. Harap pilih salah satu.");
+        }
+        // Validasi: Tahun tidak diisi dan file tidak mengandung kolom tahun
+        else if (
+            !$this->tahun &&
+            (
+                !isset($firstRow[0]) ||
+                !is_numeric($firstRow[0]) ||
+                strlen($firstRow[0]) != 4
+            )
+        ) {
+            throw new \Exception("Gagal import: Tahun tidak diisi dan file tidak mengandung kolom tahun yang valid (4 digit). Harap pilih salah satu.");
+        }
+
+        // Validasi: File kosong
+        else if ($rows->isEmpty()) {
+            throw new \Exception("Gagal import: File CSV kosong.");
+        }
+        // Validasi: file tidak sesuai
+        // else {
+        //     throw new \Exception("Gagal import: File tidak sesuai");
+        // }
+
+
         foreach ($rows->reverse() as $row) {
             PN::create([
             'tahun' =>  $this->tahun ?? $row[0],  // Gunakan tahun dari form input
