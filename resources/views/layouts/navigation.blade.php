@@ -6,7 +6,7 @@
            <!-- Kiri: Logo + Tulisan Dashboard -->
         <div class="relative flex items-center space-x-2 sm:space-x-4 ml-[-3rem] sm:ml-0 top-[-1rem] sm:top-0">
             <a href="{{ route('dashboard') }}">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 stroke-white dark:stroke-black">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 stroke-black dark:stroke-black transition-all duration-300 hover:bg-gray-200 hover:scale-105 hover:shadow-lg">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                   </svg>
 
