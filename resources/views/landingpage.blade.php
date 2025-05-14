@@ -50,7 +50,7 @@
             SELAMAT DATANG DI WEBSITE
         </h2>
         <h3 class="text-lg md:text-2xl font-semibold">
-            SEKSI PENGENDALIAN DAN PENANGANAN SENGKETA<br> 
+            SEKSI PENGENDALIAN DAN PENANGANAN SENGKETA<br>
             KANTOR PERTANAHAN KOTA MEDAN
         </h3>
         <button class="mt-6 px-6 py-2 bg-[#654321] text-white font-bold rounded-lg hover:bg-[#DDDCCB] hover:text-[#64481E]">
@@ -59,7 +59,7 @@
     </div>
 </section>
 
-<section id="tentang" class="p-0 ">
+<section id="tentang" class="p-0 scroll-mt-20 ">
   <div class="relative w-full h-auto mb-6">
     <!-- SVG Gelombang sebagai Background Full -->
     <div class="absolute inset-x-0 -bottom-1 z-0">
@@ -78,6 +78,7 @@
   </div>
 
   <div class="hidden sm:block w-full bg-[#DDDDCB] h-52 mt-[-30px]"></div>
+  <div class="hidden sm:block w-full bg-[#DDDDCB] h-12 mt-[-30px]"></div>
 
   <div class="relative w-full">
   <div class="absolute -bottom-16 sm:-bottom-12 md:-bottom-8 inset-x-0">
@@ -166,7 +167,7 @@
 </section>
 
 <section class="bg-[#DDDDCB]"  id="layanan">
-  
+
 <div class="flex flex-col lg:flex-row justify-between items-start gap-6 p-6 max-w-screen-lg mx-auto">
   <!-- Left Section -->
   <div class="flex flex-col items-start gap-1">
