@@ -9,9 +9,9 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    resolve: {
-        alias: {
-          '@': path.resolve(__dirname, 'resources/js'),
-        },
-      },
+    // resolve: {
+    //     alias: {
+    //       '@': path.resolve(__dirname, 'resources/js'),
+    //     },
+    //   },
 });
