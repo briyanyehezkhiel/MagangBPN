@@ -37,8 +37,11 @@ class ListPNS extends ListRecords
                         FileUpload::make('file')
                             ->label('File CSV')
                             ->acceptedFileTypes([
-                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                                'text/csv'
+                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                            'text/csv',
+                            'application/csv',
+                            'text/plain',
+                            'application/vnd.ms-excel',
                             ])
                             ->required(),
                         TextInput::make('tahun')

@@ -38,7 +38,10 @@ class ListPTUNS extends ListRecords
                         ->label('File CSV')
                         ->acceptedFileTypes([
                             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                            'text/csv'
+                            'text/csv',
+                            'application/csv',
+                            'text/plain',
+                            'application/vnd.ms-excel',
                         ])
                         ->required(),
                     TextInput::make('tahun')
