@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('p_t_u_n_s', function (Blueprint $table) {
             $table->id();
             $table->integer('tahun')->nullable();
-            $table->text('lokus_dan_register_perkara')->nullable();
-            $table->text('penggugat')->nullable();
-            $table->text('tergugat')->nullable();
-            $table->text('objek_perkara_letak')->nullable();
-            $table->text('tk1')->nullable();
-            $table->text('banding')->nullable();
-            $table->text('kasasi')->nullable();
-            $table->text('pk')->nullable();
-            $table->text('amar_putusan_akhir')->nullable();
-            $table->text('keterangan')->nullable();
+            $table->longText('lokus_dan_register_perkara')->nullable();
+            $table->longText('penggugat')->nullable();
+            $table->longText('tergugat')->nullable();
+            $table->longText('objek_perkara_letak')->nullable();
+            $table->longText('tk1')->nullable();
+            $table->longText('banding')->nullable();
+            $table->longText('kasasi')->nullable();
+            $table->longText('pk')->nullable();
+            $table->longText('amar_putusan_akhir')->nullable();
+            $table->longText('keterangan')->nullable();
             $table->timestamps();
         });
     }

@@ -14,19 +14,19 @@ return new class extends Migration
         Schema::create('pengendalians', function (Blueprint $table) {
             $table->id();
             $table->integer('tahun')->nullable();
-            $table->text('jenis_hak')->nullable();
-            $table->text('nomor')->nullable();
+            $table->longText('jenis_hak')->nullable();
+            $table->longText('nomor')->nullable();
             $table->date('tanggal_terbit')->nullable();
             $table->date('tanggal_berakhir')->nullable();
-            $table->text('kota')->nullable();
-            $table->text('kecamatan')->nullable();
-            $table->text('kelurahan')->nullable();
-            $table->text('luas_hak')->nullable();
-            $table->text('penguasaan_tanah')->nullable();
-            $table->text('penggunaan_tanah')->nullable();
-            $table->text('pemanfaatan_tanah')->nullable();
-            $table->text('terindikasi_terlantar', 10, 2)->nullable();
-            $table->text('keterangan')->nullable();
+            $table->longText('kota')->nullable();
+            $table->longText('kecamatan')->nullable();
+            $table->longText('kelurahan')->nullable();
+            $table->longText('luas_hak')->nullable();
+            $table->longText('penguasaan_tanah')->nullable();
+            $table->longText('penggunaan_tanah')->nullable();
+            $table->longText('pemanfaatan_tanah')->nullable();
+            $table->longText('terindikasi_terlantar', 10, 2)->nullable();
+            $table->longText('keterangan')->nullable();
             $table->timestamps();
         });
     }

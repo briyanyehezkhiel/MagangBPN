@@ -14,17 +14,17 @@ return new class extends Migration
         Schema::create('sengketas', function (Blueprint $table) {
             $table->id();
             $table->integer('tahun')->nullable();
-            $table->text('pemohon')->nullable();
-            $table->text('termohon')->nullable();
-            $table->text('objek')->nullable();
-            $table->text('pokok_masalah')->nullable();
-            $table->text('progress_penyelesaian')->nullable();
-            $table->text('konseptor')->nullable();
-            $table->text('k1')->nullable();
-            $table->text('k2')->nullable();
-            $table->text('k3')->nullable();
+            $table->longText('pemohon')->nullable();
+            $table->longText('termohon')->nullable();
+            $table->longText('objek')->nullable();
+            $table->longText('pokok_masalah')->nullable();
+            $table->longText('progress_penyelesaian')->nullable();
+            $table->longText('konseptor')->nullable();
+            $table->longText('k1')->nullable();
+            $table->longText('k2')->nullable();
+            $table->longText('k3')->nullable();
             $table->timestamps();
-            
+
         });
     }
 

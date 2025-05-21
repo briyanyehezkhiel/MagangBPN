@@ -14,19 +14,19 @@ return new class extends Migration
         Schema::create('p_n_s', function (Blueprint $table) {
             $table->id();
             $table->integer('tahun')->nullable();
-            $table->text('no_register_perkara')->nullable();
-            $table->text('penggugat')->nullable();
-            $table->text('tergugat')->nullable();
-            $table->text('objek_perkara')->nullable();
-            $table->text('tk1')->nullable();
-            $table->text('banding')->nullable();
-            $table->text('kasasi')->nullable();
-            $table->text('pk')->nullable();
-            $table->text('tipologi_kasus')->nullable();
-            $table->text('menang')->nullable();
-            $table->text('kalah')->nullable();
-            $table->text('keterangan')->nullable();
-            $table->text('justicia')->nullable();
+            $table->longText('no_register_perkara')->nullable();
+            $table->longText('penggugat')->nullable();
+            $table->longText('tergugat')->nullable();
+            $table->longText('objek_perkara')->nullable();
+            $table->longText('tk1')->nullable();
+            $table->longText('banding')->nullable();
+            $table->longText('kasasi')->nullable();
+            $table->longText('pk')->nullable();
+            $table->longText('tipologi_kasus')->nullable();
+            $table->longText('menang')->nullable();
+            $table->longText('kalah')->nullable();
+            $table->longText('keterangan')->nullable();
+            $table->longText('justicia')->nullable();
             $table->timestamps();
         });
     }
