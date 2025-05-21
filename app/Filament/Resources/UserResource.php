@@ -123,7 +123,7 @@ class UserResource extends Resource
             TextColumn::make('name')->searchable(),
             TextColumn::make('email')->searchable(),
             TextColumn::make('role')->searchable(),
-            TextColumn::make('created_at')->dateTime(),
+            // TextColumn::make('created_at')->dateTime(),
         ])
         ->filters([
             //
