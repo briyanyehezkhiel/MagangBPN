@@ -19,6 +19,16 @@ class EditPengendalian extends EditRecord
                 $this->redirect('admin/pengendalians'); // tanpa return
             }
         }
+            protected function afterSave(): void
+    {
+        $this->redirect($this->getRedirectUrl());
+    }
+
+        protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index'); // Redirect ke index setelah edit
+    }
+    
     protected function getHeaderActions(): array
     {
         return [

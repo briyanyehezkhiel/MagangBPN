@@ -16,4 +16,14 @@ class EditUser extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+        protected function afterSave(): void
+    {
+        $this->redirect($this->getRedirectUrl());
+    }
+
+        protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index'); // Redirect ke index setelah edit
+    }
+    
 }
