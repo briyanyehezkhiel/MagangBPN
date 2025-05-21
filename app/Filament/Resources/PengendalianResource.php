@@ -78,7 +78,8 @@ class PengendalianResource extends Resource
                     ->searchable(),
 
                 Textarea::make('nomor')
-                    ->numeric(),
+                    ->extraAttributes(['inputmode' => 'numeric']) // Bantu di mobile agar keyboard angka
+                    ->rules(['numeric']),
 
                 DatePicker::make('tanggal_terbit')
                     ->after(fn($get) => $get('tanggal_berakhir') && $get('tanggal_terbit') >= $get('tanggal_berakhir') ? 'Tanggal Terbit harus lebih kecil dari Tanggal Berakhir' : null), // Validasi tanggal_terbit sebelum tanggal_berakhir
