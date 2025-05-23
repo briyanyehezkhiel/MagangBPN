@@ -33,6 +33,7 @@
     ☰
   </button>
 
+
   <!-- Menu navigasi -->
   <nav id="menu" class="hidden sm:flex flex-col sm:flex-row absolute sm:static top-full left-0 w-full sm:w-auto bg-[#DDDDCB] sm:bg-transparent shadow-md sm:shadow-none z-40 sm:z-auto">
   <ul class="flex flex-col sm:flex-row w-full sm:space-x-6 font-lexend font-bold text-base sm:text-lg px-4 sm:px-0 py-2 sm:py-0">
@@ -43,21 +44,38 @@
   </nav>
 </header>
 
-<section class="relative h-screen flex items-center justify-center text-center text-white px-4">
-    <img src="{{ asset('img/blur bg.jpg') }}" alt="Background" class="absolute w-full h-full object-cover opacity-70">
+<section class="relative h-screen flex items-center justify-center text-center px-4">
+    <img src="{{ asset('img/foto_landing_page.png') }}" alt="Background" class="absolute w-full h-full object-cover opacity-70">
     <div class="relative z-10">
-        <h2 class="text-2xl md:text-4xl font-bold mb-4">
+        <h2
+            class="text-2xl md:text-4xl font-bold mb-4"
+            style="color: #3f3f3f; text-shadow:
+                0.8px 0.8px 0 #eaeaea,
+                -0.8px 0.8px 0 #eaeaea,
+                0.8px -0.8px 0 #eaeaea,
+                -0.8px -0.8px 0 #eaeaea,
+                0px 2px 4px rgba(0, 0, 0, 0.1);"
+        >
             SELAMAT DATANG DI WEBSITE
         </h2>
-        <h3 class="text-lg md:text-2xl font-semibold">
+        <h3
+            class="text-lg md:text-2xl font-semibold"
+            style="color: #3f3f3f; text-shadow:
+                0.8px 0.8px 0 #eaeaea,
+                -0.8px 0.8px 0 #eaeaea,
+                0.8px -0.8px 0 #eaeaea,
+                -0.8px -0.8px 0 #eaeaea,
+                0px 2px 4px rgba(0, 0, 0, 0.1);"
+        >
             SEKSI PENGENDALIAN DAN PENANGANAN SENGKETA<br>
             KANTOR PERTANAHAN KOTA MEDAN
         </h3>
-        <button class="mt-6 px-6 py-2 bg-[#654321] text-white font-bold rounded-lg hover:bg-[#DDDCCB] hover:text-[#64481E]">
+        <button class="mt-6 px-6 py-2 bg-[#44403c] text-white font-bold rounded-lg hover:bg-[#e5e5e5] hover:text-[#44403c] transition">
             <a href="/dashboard">LOGIN</a>
         </button>
     </div>
 </section>
+
 
 <section id="tentang" class="p-0 scroll-mt-20 ">
   <div class="relative w-full h-auto mb-6">
@@ -151,20 +169,33 @@
 <!-- SECTION: LAYANAN -->
 <section class="bg-[#64481E] pt-6 pb-6 px-4 text-white relative z-10">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto items-start">
+
+    <!-- Kiri -->
     <div class="text-center space-y-4">
       <h3 class="text-xl md:text-xl font-semibold">Layanan apa saja yang kami sediakan?</h3>
       <img src="{{ asset('img/Layanan1.png') }}"
            class="w-full max-w-md mx-auto rounded-lg shadow-md border-4 border-white transition-transform transition-shadow duration-300 ease-in-out hover:scale-110 hover:shadow-xl"
            alt="Layanan Kiri">
     </div>
+
+    <!-- Kanan (Video) -->
     <div class="text-center space-y-4">
-      <h3 class="text-xl md:text-xl font-semibold">Menyimpan data seluruh sengketa pertanahan</h3>
-      <img src="{{ asset('img/Layanan1.png') }}"
-           class="w-full max-w-md mx-auto rounded-lg shadow-md border-4 border-white transition-transform transition-shadow duration-300 ease-in-out hover:scale-110 hover:shadow-xl"
-           alt="Layanan Kanan">
+      <h3 class="text-xl md:text-xl font-semibold">Video Tutorial Penggunaan Website</h3>
+      <div class="w-full max-w-md mx-auto rounded-lg shadow-md border-4 border-white overflow-hidden transition-transform transition-shadow duration-300 ease-in-out hover:scale-110 hover:shadow-xl">
+        <iframe
+          class="w-full aspect-video"
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
     </div>
+
   </div>
 </section>
+
 
 <section class="bg-[#DDDDCB]"  id="layanan">
 
@@ -189,10 +220,10 @@
     <span>Jl STM Siti Rejo II, Medan Amplas</span>
   </div>
 
-  <a href="tel:081264247878" class="flex items-center gap-2">
+  <!-- <a href="tel:081264247878" class="flex items-center gap-2">
     <img src="/img/call.png" class="w-6 h-6" alt="Call">
     <span>081264247878</span>
-  </a>
+  </a> -->
 
   <a href="mailto:kot-medan@atrbpn.go.id" class="flex items-center gap-2">
   <img src="/img/gmail.png" class="w-6 h-6" alt="Message">
